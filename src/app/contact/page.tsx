@@ -11,7 +11,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-// import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@/hooks/use-toast"
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -24,7 +24,7 @@ type FormValues = z.infer<typeof formSchema>
 
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
-//   const { toast } = useToast()
+  const { toast } = useToast()
   const [isLoaded, setIsLoaded] = useState(true)
 
   const form = useForm<FormValues>({
@@ -244,4 +244,4 @@ export default function ContactPage() {
       </div>
     </main>
   )
-}
+} 

@@ -249,16 +249,14 @@ function TimelineNode({ milestone, index, accentColor }: TimelineNodeProps) {
       {/* Icon circle */}
       <div className={`absolute left-0 p-3 rounded-full ${colorClass.split(" ")[0]} text-white`}>{milestone.icon}</div>
 
-      {/* Content card */}
-      <div className={`bg-white rounded-2xl p-6 shadow-md border ${colorClass.split(" ")[2]}`}>
-        <div className="flex justify-between items-start mb-2">
-          <h3 className="text-xl font-bold text-gray-900">{milestone.title}</h3>
-          <span className={`px-3 py-1 rounded-full text-sm font-medium ${colorClass.split(" ")[1]} bg-opacity-10`}>
-            {milestone.date}
-          </span>
+      {/* Content */}
+      <div className="bg-white rounded-xl p-6 shadow-md">
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-lg font-semibold text-gray-900">{milestone.title}</h3>
+          <span className="text-sm font-medium text-gray-500">{milestone.date}</span>
         </div>
         <p className="text-gray-600">{milestone.description}</p>
       </div>
     </motion.div>
   )
-}
+} 
