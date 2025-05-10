@@ -11,6 +11,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import Navbar from "@/components/Navbar"
+
 // import { useToast } from "@/hooks/use-toast"
 
 const formSchema = z.object({
@@ -63,6 +65,7 @@ export default function ContactPage() {
 
   return (
     <main className="min-h-screen bg-gray-100 py-16">
+      <Navbar />
       <div className="container mx-auto px-4">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
