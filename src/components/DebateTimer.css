@@ -1,0 +1,143 @@
+/* DebateTimer.css */
+
+.debate-timer {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+.debate-timer h2 {
+  text-align: center;
+  color: #343a40;
+  margin-bottom: 20px;
+}
+
+.timer-display {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.time {
+  font-size: 3.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 15px;
+  transition: color 0.3s ease;
+}
+
+.timer-normal {
+  color: #28a745;
+}
+
+.timer-warning {
+  color: #ffc107;
+}
+
+.timer-critical {
+  color: #dc3545;
+  animation: pulse 1s infinite;
+}
+
+.timer-progress-container {
+  height: 10px;
+  background-color: #e9ecef;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.timer-progress-bar {
+  height: 100%;
+  background-color: #007bff;
+  transition: width 1s linear;
+}
+
+.timer-controls {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 15px;
+}
+
+.timer-controls button {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.play {
+  background-color: #28a745;
+  color: white;
+}
+
+.pause {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.reset {
+  background-color: #6c757d;
+  color: white;
+}
+
+.timer-controls button:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.preset-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.preset-buttons button {
+  padding: 5px 15px;
+  background-color: #e9ecef;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.preset-buttons button:hover {
+  background-color: #dee2e6;
+}
+
+.preset-buttons button.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #0069d9;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 576px) {
+  .time {
+    font-size: 2.5rem;
+  }
+  
+  .preset-buttons {
+    flex-direction: row;
+  }
+}
