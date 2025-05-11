@@ -99,11 +99,11 @@ export default function Home() {
   return (
     <>
 
-      <main className="overflow-hidden">
+       <main className="overflow-hidden bg-background">
         {/* Hero Section with Gradient Background */}
         <section ref={heroRef} className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden">
           {/* Background gradient */}
-          <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-indigo-50 z-0" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background to-accent z-0" />
 
           {/* Animated background shapes */}
           <div className="absolute inset-0 overflow-hidden z-0">
@@ -118,7 +118,6 @@ export default function Home() {
               initial="hidden"
               animate={heroControls}
               variants={staggerContainer}
-              style={{ y: heroY, opacity: heroOpacity }}
             >
               <motion.div className="space-y-8" variants={fadeInUp}>
                 <motion.div

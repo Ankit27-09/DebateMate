@@ -173,7 +173,7 @@ export default function RoadmapPage() {
   const filteredMilestones = milestones.filter((milestone) => milestone.track === selectedTrack)
 
   return (
-    <main className="min-h-screen bg-gray-100 py-16">
+    <main className="min-h-screen bg-background py-16">
       <div className="container mx-auto px-4">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
