@@ -4,7 +4,6 @@ import { useEffect, useRef} from "react"
 import { motion, useAnimation, useInView} from "framer-motion"
 
 import TestimonialCarousel from "@/components/testimonial-carousel"
-import Navbar from "@/components/Navbar"
 
 function AvatarModel() {
   return (
@@ -82,7 +81,6 @@ export default function TestimonialsPage(){
 
     return (
         <main className="min-h-screen bg-white py-10">
-            <Navbar />
              <div ref={testimonialRef} className=" bg-white">
                       <div className="container mx-auto px-4">
                         <motion.div

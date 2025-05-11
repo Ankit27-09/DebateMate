@@ -7,12 +7,14 @@ import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useMobile } from "@/hooks/use-mobile"
 import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import { usePathname } from "next/navigation"
 
 export default function Navbar() {
   const [isClient, setIsClient] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const isMobile = useMobile()
+  const pathname = usePathname()
 
   useEffect(() => {
     setIsClient(true) // Ensure component runs only on the client
@@ -70,22 +72,33 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          {!isMobile && (
-            <nav className="hidden md:flex items-center space-x-8">
-              {navLinks.map((link, index) => (
-                <motion.div
-                  key={link.name}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.5 }}
-                >
-                  <Link href={link.href} className="text-gray-700 hover:text-indigo-600 font-medium transition-colors">
-                    {link.name}
-                  </Link>
-                </motion.div>
-              ))}
-            </nav>
-          )}
+            {!isMobile && (
+              <nav className="hidden md:flex items-center space-x-8">
+                {navLinks.map((link, index) => {
+                  const isActive = pathname === link.href;
+
+                  return (
+                    <motion.div
+                      key={link.name}
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1, duration: 0.5 }}
+                    >
+                      <Link
+                        href={link.href}
+                        className={`font-medium transition-colors ${
+                          isActive
+                            ? "text-indigo-600"
+                            : "text-gray-700 hover:text-indigo-600"
+                        }`}
+                      >
+                        {link.name}
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </nav>
+            )}
 
           {/* CTA Buttons */}
           <div className="flex items-center space-x-4">

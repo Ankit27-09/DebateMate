@@ -7,7 +7,6 @@ import { motion, useAnimation, useInView } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import Navbar from "@/components/Navbar"
 
 
 export default function PricingPage(){
@@ -74,7 +73,6 @@ export default function PricingPage(){
 
     return (
          <main className="min-h-screen bg-white py-10">
-            <Navbar />
             <div ref={pricingRef} className="py-2 bg-gray-50">
                   <div className="container mx-auto px-4">
                     <motion.div

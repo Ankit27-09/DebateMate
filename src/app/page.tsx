@@ -98,7 +98,6 @@ export default function Home() {
 
   return (
     <>
-      <Navbar />
 
       <main className="overflow-hidden">
         {/* Hero Section with Gradient Background */}

@@ -6,7 +6,6 @@ import { useState, useRef } from "react"
 import { motion, useInView } from "framer-motion"
 import { BookOpen, Mic, Trophy, Users, Video, FileText, Award, CheckCircle } from "lucide-react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import Navbar from "@/components/Navbar"
 
 type Track = "debating" | "speaking"
 
@@ -175,7 +174,6 @@ export default function RoadmapPage() {
 
   return (
     <main className="min-h-screen bg-gray-100 py-16">
-      <Navbar />
       <div className="container mx-auto px-4">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}

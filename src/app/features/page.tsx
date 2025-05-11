@@ -4,8 +4,6 @@ import { useEffect, useRef, useState } from "react"
 import { motion, useAnimation, useInView, useScroll, useTransform } from "framer-motion"
 import {  Brain, FileText, Map, Upload } from "lucide-react"
 
-import Navbar from "@/components/Navbar"
-
 
 interface FeatureCardProps {
   icon: React.ReactNode
@@ -97,7 +95,6 @@ export default function FeaturesPage(){
     return (
         <main className="min-h-screen bg-white py-10">
             <div ref={featuresRef} className=" bg-white">
-                <Navbar />
                     <div className="container mx-auto px-4">
                     <motion.div
                         className="text-center max-w-3xl mx-auto mb-16"
