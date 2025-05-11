@@ -118,7 +118,7 @@ export default function ContactPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Subject</FormLabel>
-                      <Select onValueChange={field?.onChange} defaultValue={field.value}>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger className="rounded-2xl p-4">
                             <SelectValue placeholder="Select a subject" />
