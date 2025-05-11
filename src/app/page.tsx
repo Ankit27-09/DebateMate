@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { motion, useAnimation, useInView, useScroll, useTransform } from "framer-motion"
+import { motion, useAnimation, useInView, useScroll, useTransform, HTMLMotionProps } from "framer-motion"
 import { ArrowRight, Brain, CheckCircle, FileText, Map, Upload } from "lucide-react"
 import { Canvas } from "@react-three/fiber"
 import { OrbitControls } from "@react-three/drei"
@@ -13,6 +13,8 @@ import TestimonialCarousel from "@/components/testimonial-carousel"
 import LogoMarquee from "@/components/logo-marquee"
 import { cn } from "@/lib/utils"
 import Navbar from "@/components/Navbar"
+
+const MotionButton = motion(Button)
 
 function AvatarModel() {
   return (
@@ -144,27 +146,25 @@ export default function Home() {
                 </motion.p>
 
                 <motion.div className="flex flex-col sm:flex-row gap-4" variants={fadeInUp}>
-                  <Button
+                  <MotionButton
                     size="lg"
                     className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl px-8 py-6 text-lg shadow-lg hover:shadow-indigo-200 transition-all"
-                    as={motion.button}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     Start Your First Debate
                     <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
+                  </MotionButton>
 
-                  <Button
+                  <MotionButton
                     variant="outline"
                     size="lg"
                     className="border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 rounded-xl px-8 py-6 text-lg"
-                    as={motion.button}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     See Demo
-                  </Button>
+                  </MotionButton>
                 </motion.div>
 
                 <motion.div className="flex items-center gap-4 text-gray-600" variants={fadeInUp}>
@@ -503,19 +503,18 @@ export default function Home() {
                       </li>
                     ))}
                   </ul>
-                  <Button
+                  <MotionButton
                     className={cn(
                       "w-full py-6 rounded-xl",
                       plan.popular
                         ? "bg-indigo-600 hover:bg-indigo-700 text-white"
                         : "bg-white border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50",
                     )}
-                    as={motion.button}
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     {plan.buttonText}
-                  </Button>
+                  </MotionButton>
                 </motion.div>
               ))}
             </motion.div>
@@ -536,16 +535,15 @@ export default function Home() {
               <p className="text-xl text-indigo-100 mb-8">
                 Join thousands of users who have transformed their argumentation abilities with DebateMate.
               </p>
-              <Button
+              <MotionButton
                 size="lg"
                 className="bg-white text-indigo-600 hover:bg-indigo-50 rounded-xl px-8 py-6 text-lg shadow-lg"
-                as={motion.button}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >
                 Start Your Free Trial
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+              </MotionButton>
             </motion.div>
           </div>
         </section>

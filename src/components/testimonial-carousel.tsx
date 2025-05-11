@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { ChevronLeft, ChevronRight, Star } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useMobile } from "@/hooks/use-mobile"
+import Image from "next/image"
 
 const testimonials = [
   {
@@ -107,9 +108,11 @@ export default function TestimonialCarousel() {
                 <div key={testimonial.id} className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
                   <div className="flex items-center mb-6">
                     <div className="w-14 h-14 rounded-full overflow-hidden mr-4 bg-indigo-100">
-                      <img
+                      <Image
                         src={testimonial.image || "/placeholder.svg"}
                         alt={testimonial.name}
+                        width={80}
+                        height={80}
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -119,7 +122,7 @@ export default function TestimonialCarousel() {
                     </div>
                   </div>
 
-                  <p className="text-gray-700 mb-6 italic">"{testimonial.content}"</p>
+                  <p className="text-gray-700 mb-6 italic">{testimonial.content}</p>
 
                   <div className="flex">
                     {Array.from({ length: 5 }).map((_, i) => (

@@ -26,8 +26,7 @@ type FormValues = z.infer<typeof formSchema>
 
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
-//   const { toast } = useToast()
-  const [isLoaded, setIsLoaded] = useState(true)
+  const [isLoaded] = useState(true)
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -39,25 +38,18 @@ export default function ContactPage() {
     },
   })
 
-  async function onSubmit(data: FormValues) {
+  async function onSubmit(values: FormValues) {
     setIsSubmitting(true)
 
     try {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1500))
 
-      toast({
-        title: "Message sent!",
-        description: "We'll get back to you as soon as possible.",
-      })
-
+      alert("Message sent! We'll get back to you as soon as possible.");
+      
       form.reset()
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "There was a problem sending your message. Please try again.",
-        variant: "destructive",
-      })
+    } catch (err) {
+      alert("Error: There was a problem sending your message. Please try again.");
     } finally {
       setIsSubmitting(false)
     }

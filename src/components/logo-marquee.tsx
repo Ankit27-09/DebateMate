@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 const logos = [
   { name: "Company 1", logo: "/placeholder.svg?height=40&width=120" },
@@ -41,7 +42,13 @@ export default function LogoMarquee() {
               key={index}
               className="flex-shrink-0 flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-70 hover:opacity-100"
             >
-              <img src={logo.logo || "/placeholder.svg"} alt={logo.name} className="h-10" />
+              <Image 
+                src={logo.logo || "/placeholder.svg"} 
+                alt={logo.name} 
+                width={120}
+                height={40}
+                className="h-10 w-auto" 
+              />
             </div>
           ))}
         </motion.div>
