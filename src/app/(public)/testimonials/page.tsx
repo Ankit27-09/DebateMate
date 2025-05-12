@@ -56,8 +56,8 @@ const caseStudies = [
 
 export default function TestimonialsPage() {
   return (
-    <div className="pt-20">
-      <div className="container py-8 mx-auto">
+    <div className="bg-muted">
+      <div className="container pt-24 pb-8 mx-auto">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h1 className="text-4xl font-bold mb-4">Success Stories</h1>
           <p className="text-xl text-muted-foreground">
@@ -66,9 +66,11 @@ export default function TestimonialsPage() {
           </p>
         </div>
       </div>
-      {caseStudies.map((caseStudy) => (
-        <CaseStudy key={caseStudy.title} {...caseStudy} />
-      ))}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-16">
+        {caseStudies.map((caseStudy) => (
+          <CaseStudy key={caseStudy.title} {...caseStudy} />
+        ))}
+      </div>
 
       <section
         id="testimonials"

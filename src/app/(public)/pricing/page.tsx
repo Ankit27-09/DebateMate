@@ -1,60 +1,113 @@
 import PricingCards from "@/components/landing/pricing-cards";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { XIcon, CheckIcon } from "lucide-react";
 
 export default function PricingPage() {
   return (
-    <div className="pt-20">
+    <div>
       <PricingCards />
       <div className="container">
-        <div className="mt-16 max-w-4xl mx-auto">
-          <h3 className="text-2xl font-bold mb-6 text-center">Compare Plans</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse">
-              <thead>
-                <tr className="border-b">
-                  <th className="py-4 px-4 text-left">Feature</th>
-                  <th className="py-4 px-4 text-center">Student</th>
-                  <th className="py-4 px-4 text-center">Educator</th>
-                  <th className="py-4 px-4 text-center">Institution</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-b">
-                  <td className="py-3 px-4">Practice Sessions</td>
-                  <td className="py-3 px-4 text-center">10/month</td>
-                  <td className="py-3 px-4 text-center">Unlimited</td>
-                  <td className="py-3 px-4 text-center">Unlimited</td>
-                </tr>
-                <tr className="border-b">
-                  <td className="py-3 px-4">AI Feedback Quality</td>
-                  <td className="py-3 px-4 text-center">Basic</td>
-                  <td className="py-3 px-4 text-center">Advanced</td>
-                  <td className="py-3 px-4 text-center">Enterprise</td>
-                </tr>
-                <tr className="border-b">
-                  <td className="py-3 px-4">Team Management</td>
-                  <td className="py-3 px-4 text-center">-</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                </tr>
-                <tr className="border-b">
-                  <td className="py-3 px-4">Analytics Dashboard</td>
-                  <td className="py-3 px-4 text-center">Basic</td>
-                  <td className="py-3 px-4 text-center">Advanced</td>
-                  <td className="py-3 px-4 text-center">Enterprise</td>
-                </tr>
-                <tr className="border-b">
-                  <td className="py-3 px-4">Support</td>
-                  <td className="py-3 px-4 text-center">Email</td>
-                  <td className="py-3 px-4 text-center">Priority</td>
-                  <td className="py-3 px-4 text-center">Dedicated</td>
-                </tr>
-              </tbody>
-            </table>
+        <div className="mt-12">
+          <div className="text-center space-y-4">
+            <h2 className="text-3xl md:text-4xl font-bold">
+              Compare our pricing plans
+            </h2>
+            <p className="text-muted-foreground text-lg md:text-xl max-w-3xl mx-auto">
+              Find the plan that fits your needs and budget.
+            </p>
+          </div>
+          <div className="overflow-x-auto mt-8 container max-w-5xl mx-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Features</TableHead>
+                  <TableHead>Starter</TableHead>
+                  <TableHead>Pro</TableHead>
+                  <TableHead>Business</TableHead>
+                  <TableHead>Enterprise</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell>Users</TableCell>
+                  <TableCell>1</TableCell>
+                  <TableCell>5</TableCell>
+                  <TableCell>10</TableCell>
+                  <TableCell>Unlimited</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Storage</TableCell>
+                  <TableCell>5 GB</TableCell>
+                  <TableCell>50 GB</TableCell>
+                  <TableCell>100 GB</TableCell>
+                  <TableCell>Unlimited</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Analytics</TableCell>
+                  <TableCell>Basic</TableCell>
+                  <TableCell>Advanced</TableCell>
+                  <TableCell>Advanced</TableCell>
+                  <TableCell>Advanced</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Custom Branding</TableCell>
+                  <TableCell>
+                    <XIcon className="w-4 h-4 text-muted-foreground" />
+                  </TableCell>
+                  <TableCell>
+                    <CheckIcon className="w-4 h-4 fill-primary" />
+                  </TableCell>
+                  <TableCell>
+                    <CheckIcon className="w-4 h-4 fill-primary" />
+                  </TableCell>
+                  <TableCell>
+                    <CheckIcon className="w-4 h-4 fill-primary" />
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Dedicated Support</TableCell>
+                  <TableCell>
+                    <XIcon className="w-4 h-4 text-muted-foreground" />
+                  </TableCell>
+                  <TableCell>
+                    <XIcon className="w-4 h-4 text-muted-foreground" />
+                  </TableCell>
+                  <TableCell>
+                    <CheckIcon className="w-4 h-4 fill-primary" />
+                  </TableCell>
+                  <TableCell>
+                    <CheckIcon className="w-4 h-4 fill-primary" />
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>SLA Uptime Guarantee</TableCell>
+                  <TableCell>
+                    <XIcon className="w-4 h-4 text-muted-foreground" />
+                  </TableCell>
+                  <TableCell>
+                    <XIcon className="w-4 h-4 text-muted-foreground" />
+                  </TableCell>
+                  <TableCell>
+                    <XIcon className="w-4 h-4 text-muted-foreground" />
+                  </TableCell>
+                  <TableCell>
+                    <CheckIcon className="w-4 h-4 fill-primary" />
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
           </div>
         </div>
       </div>
 
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-background">
         <div className="container">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold mb-8 text-center">
