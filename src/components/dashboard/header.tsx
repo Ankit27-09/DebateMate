@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Bell, Search } from "lucide-react"
-import { motion } from "framer-motion"
+import { useState, useEffect } from "react";
+import { Bell, Search } from "lucide-react";
+import { motion } from "framer-motion";
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,22 +13,21 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { useMobile } from "@/hooks/use-mobile"
+} from "@/components/ui/dropdown-menu";
+import { useMobile } from "@/hooks/use-mobile";
 
 export function DashboardHeader({ title }: { title: string }) {
-
-  const isMobile = useMobile()
-  const [scrolled, setScrolled] = useState(false)
+  const isMobile = useMobile();
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10)
-    }
+      setScrolled(window.scrollY > 10);
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <motion.header
@@ -68,18 +67,24 @@ export function DashboardHeader({ title }: { title: string }) {
           <DropdownMenuSeparator />
           <DropdownMenuItem className="flex flex-col items-start gap-1 p-3">
             <div className="font-medium">New feedback available</div>
-            <div className="text-xs text-muted-foreground">Your recent debate has been analyzed</div>
+            <div className="text-xs text-muted-foreground">
+              Your recent debate has been analyzed
+            </div>
           </DropdownMenuItem>
           <DropdownMenuItem className="flex flex-col items-start gap-1 p-3">
             <div className="font-medium">Learning path updated</div>
-            <div className="text-xs text-muted-foreground">New module on logical fallacies is ready</div>
+            <div className="text-xs text-muted-foreground">
+              New module on logical fallacies is ready
+            </div>
           </DropdownMenuItem>
           <DropdownMenuItem className="flex flex-col items-start gap-1 p-3">
             <div className="font-medium">Achievement unlocked</div>
-            <div className="text-xs text-muted-foreground">You've earned "Consistent Debater"</div>
+            <div className="text-xs text-muted-foreground">
+              You&apos;ve earned &quot;Consistent Debater&quot;
+            </div>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </motion.header>
-  )
+  );
 }

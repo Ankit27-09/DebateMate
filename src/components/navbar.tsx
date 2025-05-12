@@ -1,42 +1,48 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { useMobile } from "@/hooks/use-mobile"
-import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
-import { usePathname } from "next/navigation"
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useMobile } from "@/hooks/use-mobile";
+import {
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
-  const [isClient, setIsClient] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const isMobile = useMobile()
-  const pathname = usePathname()
+  const [isClient, setIsClient] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isMobile = useMobile();
+  const pathname = usePathname();
 
   useEffect(() => {
-    setIsClient(true) // Ensure component runs only on the client
-  }, [])
+    setIsClient(true); // Ensure component runs only on the client
+  }, []);
 
   useEffect(() => {
     if (isClient) {
       const handleScroll = () => {
         if (window.scrollY > 10) {
-          setIsScrolled(true)
+          setIsScrolled(true);
         } else {
-          setIsScrolled(false)
+          setIsScrolled(false);
         }
-      }
+      };
 
-      window.addEventListener("scroll", handleScroll)
-      return () => window.removeEventListener("scroll", handleScroll)
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
     }
-  }, [isClient])
+  }, [isClient]);
 
   if (!isClient) {
-    return null
+    return null;
   }
 
   const navLinks = [
@@ -46,12 +52,14 @@ export default function Navbar() {
     { name: "Testimonials", href: "/testimonials" },
     { name: "Contact", href: "/contact" },
     { name: "Roadmap", href: "/roadmap" },
-  ]
+  ];
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white/90 backdrop-blur-md shadow-md py-3" : "bg-transparent py-5"
+        isScrolled
+          ? "bg-white/90 backdrop-blur-md shadow-md py-3"
+          : "bg-transparent py-5"
       }`}
     >
       <div className="container mx-auto px-4">
@@ -67,38 +75,40 @@ export default function Navbar() {
               <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-800 flex items-center justify-center text-white font-bold text-xl mr-2">
                 D
               </div>
-              <span className="text-xl font-bold text-gray-900">DebateMate</span>
+              <span className="text-xl font-bold text-gray-900">
+                DebateMate
+              </span>
             </motion.div>
           </Link>
 
           {/* Desktop Navigation */}
-            {!isMobile && (
-              <nav className="hidden md:flex items-center space-x-8">
-                {navLinks.map((link, index) => {
-                  const isActive = pathname === link.href;
+          {!isMobile && (
+            <nav className="hidden md:flex items-center space-x-8">
+              {navLinks.map((link, index) => {
+                const isActive = pathname === link.href;
 
-                  return (
-                    <motion.div
-                      key={link.name}
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1, duration: 0.5 }}
+                return (
+                  <motion.div
+                    key={link.name}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1, duration: 0.5 }}
+                  >
+                    <Link
+                      href={link.href}
+                      className={`font-medium transition-colors ${
+                        isActive
+                          ? "text-indigo-600"
+                          : "text-gray-700 hover:text-indigo-600"
+                      }`}
                     >
-                      <Link
-                        href={link.href}
-                        className={`font-medium transition-colors ${
-                          isActive
-                            ? "text-indigo-600"
-                            : "text-gray-700 hover:text-indigo-600"
-                        }`}
-                      >
-                        {link.name}
-                      </Link>
-                    </motion.div>
-                  );
-                })}
-              </nav>
-            )}
+                      {link.name}
+                    </Link>
+                  </motion.div>
+                );
+              })}
+            </nav>
+          )}
 
           {/* CTA Buttons */}
           <div className="flex items-center space-x-4">
@@ -111,7 +121,10 @@ export default function Navbar() {
                   transition={{ delay: 0.6, duration: 0.5 }}
                 >
                   <SignInButton>
-                    <Button variant="outline" className="border-indigo-600 text-indigo-600 hover:bg-indigo-50">
+                    <Button
+                      variant="outline"
+                      className="border-indigo-600 text-indigo-600 hover:bg-indigo-50"
+                    >
                       Log In
                     </Button>
                   </SignInButton>
@@ -124,16 +137,20 @@ export default function Navbar() {
                 transition={{ delay: 0.7, duration: 0.5 }}
               >
                 <SignUpButton>
-                  <Button className="bg-indigo-600 hover:bg-indigo-700 text-white">Sign Up Free</Button>
+                  <Button className="bg-indigo-600 hover:bg-indigo-700 text-white">
+                    Sign Up Free
+                  </Button>
                 </SignUpButton>
               </motion.div>
             </SignedOut>
 
             <SignedIn>
-              {/* Display signed-in user info or a logout button */}
-              <button className="border-indigo-600 py-2 px-4 rounded">
-                <UserButton />
-              </button>
+              <Button
+                asChild
+                className="bg-indigo-600 hover:bg-indigo-700 text-white"
+              >
+                <Link href="/dashboard">Dashboard</Link>
+              </Button>
             </SignedIn>
 
             {/* Mobile Menu Button */}
@@ -145,7 +162,11 @@ export default function Navbar() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.8 }}
               >
-                {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                {mobileMenuOpen ? (
+                  <X className="h-6 w-6" />
+                ) : (
+                  <Menu className="h-6 w-6" />
+                )}
               </motion.button>
             )}
           </div>
@@ -200,5 +221,5 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </header>
-  )
+  );
 }

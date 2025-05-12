@@ -40,24 +40,35 @@ const features = [
     },
   ]
 export default function Features() {
-  // Create refs for each section
-  const sectionRefs = features.map(() => useRef<HTMLDivElement>(null));
-  const inViewArray = sectionRefs.map((section) => useInView(section, {amount:0.2}));
+  // Create refs and inView hooks for each of the 4 features
+  const sectionRef0 = useRef<HTMLDivElement>(null);
+  const sectionRef1 = useRef<HTMLDivElement>(null);
+  const sectionRef2 = useRef<HTMLDivElement>(null);
+  const sectionRef3 = useRef<HTMLDivElement>(null);
+
+  const inView0 = useInView(sectionRef0, { amount: 0.2 });
+  const inView1 = useInView(sectionRef1, { amount: 0.2 });
+  const inView2 = useInView(sectionRef2, { amount: 0.2 });
+  const inView3 = useInView(sectionRef3, { amount: 0.2 });
+
+  const sectionRefs = [sectionRef0, sectionRef1, sectionRef2, sectionRef3];
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(0);
 
   useEffect(() => {
-    const foundIndex = inViewArray.findIndex((view) => view);
+    // build the array here so it doesn’t change identity each render
+    const inViews = [inView0, inView1, inView2, inView3];
+    const foundIndex = inViews.findIndex(Boolean);
     if (foundIndex !== -1) {
       setActiveIndex((prev) => {
-        if (prev === foundIndex) {
-            return prev;
-        }
-        setDirection(foundIndex > prev ? 1 : -1)
+        if (prev === foundIndex) return prev;
+        setDirection(foundIndex > prev ? 1 : -1);
         return foundIndex;
       });
     }
-  }, [inViewArray]);
+  // only re-run when one of the boolean flags changes
+  }, [inView0, inView1, inView2, inView3]);
 
   const handleClick = (index:number) => {
     sectionRefs[index].current?.scrollIntoView({behavior: 'smooth'});
