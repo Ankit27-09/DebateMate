@@ -43,17 +43,6 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <header className="flex justify-end items-center p-4 gap-4 h-16">
-              <SignedIn>
-                <UserButton afterSignOutUrl="/" />
-              </SignedIn>
-              <SignedOut>
-                <div className="flex gap-2">
-                  <SignInButton mode="modal" />
-                  <SignUpButton mode="modal" />
-                </div>
-              </SignedOut>
-            </header>
             <Navbar />
             {children}
           </ThemeProvider>
