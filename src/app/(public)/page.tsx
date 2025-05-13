@@ -25,6 +25,7 @@ import { useMobile } from "@/hooks/use-mobile";
 import TestimonialCarousel from "@/components/landing/testimonial-carousel";
 import LogoMarquee from "@/components/logo-marquee";
 import PricingCards from "@/components/landing/pricing-cards";
+import Link from "next/link";
 
 const MotionButton = motion.create(Button);
 
@@ -166,9 +167,12 @@ export default function Home() {
                   className="bg-indigo-600 hover:bg-indigo-700 text-white cursor-pointer rounded-xl px-8 py-6 text-lg shadow-lg hover:shadow-indigo-200 transition-all"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
+                  asChild
                 >
-                  Start Your First Debate
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <Link href="/dashboard">
+                    Start Your First Debate
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
                 </MotionButton>
 
                 <MotionButton
@@ -177,8 +181,9 @@ export default function Home() {
                   className="border-2 border-indigo-600 cursor-pointer text-indigo-600 dark:text-indigo-300 hover:bg-indigo-50 rounded-xl px-8 py-6 text-lg"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
+                  asChild
                 >
-                  See Demo
+                  <Link href="/demo">See Demo</Link>
                 </MotionButton>
               </motion.div>
 
