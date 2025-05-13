@@ -6,7 +6,8 @@ import { useEffect, useRef } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { CheckCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
+
+import { fadeInUp, staggerContainer } from "@/utils/animations/variants";
 
 export default function PricingPage() {
   const heroRef = useRef(null);
@@ -49,28 +50,6 @@ export default function PricingPage() {
     pricingControls,
   ]);
 
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 60 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.22, 1, 0.36, 1],
-      },
-    },
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
   return (
     <main className="min-h-screen bg-white py-10">
       <div ref={pricingRef} className="py-2 bg-gray-50">
@@ -82,7 +61,7 @@ export default function PricingPage() {
             variants={staggerContainer}
           >
             <motion.div
-              className="inline-block px-4 py-2 bg-indigo-100 rounded-full text-indigo-700 font-medium text-1xl mb-4"
+              className="inline-block px-4 py-2 bg-indigo-100 rounded-full text-indigo-700 font-medium text-1xl mb-4 mt-8 md:mt-5 lg:mt-6"
               variants={fadeInUp}
             >
               Pricing Plans

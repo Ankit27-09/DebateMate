@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { ChevronLeft, ChevronRight, Star } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { useMobile } from "@/hooks/use-mobile"
-import Image from "next/image"
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useMobile } from "@/hooks/use-mobile";
+import Image from "next/image";
 
 const testimonials = [
   {
@@ -44,30 +44,32 @@ const testimonials = [
       "The personalized roadmap feature is exceptional. It identified specific areas where my clients needed improvement and provided targeted exercises that yielded noticeable results.",
     rating: 5,
   },
-]
+];
 
 export default function TestimonialCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [direction, setDirection] = useState(0)
-  const isMobile = useMobile()
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const isMobile = useMobile();
 
   const nextTestimonial = () => {
-    setDirection(1)
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length)
-  }
+    setDirection(1);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+  };
 
   const prevTestimonial = () => {
-    setDirection(-1)
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length)
-  }
+    setDirection(-1);
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length
+    );
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
-      nextTestimonial()
-    }, 6000)
+      nextTestimonial();
+    }, 6000);
 
-    return () => clearInterval(interval)
-  }, [])
+    return () => clearInterval(interval);
+  }, []);
 
   const variants = {
     enter: (direction: number) => ({
@@ -82,9 +84,9 @@ export default function TestimonialCarousel() {
       x: direction > 0 ? -1000 : 1000,
       opacity: 0,
     }),
-  }
+  };
 
-  const displayCount = isMobile ? 1 : 2
+  const displayCount = isMobile ? 1 : 2;
 
   return (
     <div className="relative">
@@ -98,14 +100,19 @@ export default function TestimonialCarousel() {
             animate="center"
             exit="exit"
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            className={`grid grid-cols-1 ${displayCount > 1 ? "md:grid-cols-2" : ""} gap-8`}
+            className={`grid grid-cols-1 ${
+              displayCount > 1 ? "md:grid-cols-2" : ""
+            } gap-8`}
           >
             {Array.from({ length: displayCount }).map((_, i) => {
-              const testimonialIndex = (currentIndex + i) % testimonials.length
-              const testimonial = testimonials[testimonialIndex]
+              const testimonialIndex = (currentIndex + i) % testimonials.length;
+              const testimonial = testimonials[testimonialIndex];
 
               return (
-                <div key={testimonial.id} className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                <div
+                  key={testimonial.id}
+                  className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100"
+                >
                   <div className="flex items-center mb-6">
                     <div className="w-14 h-14 rounded-full overflow-hidden mr-4 bg-indigo-100">
                       <Image
@@ -117,23 +124,33 @@ export default function TestimonialCarousel() {
                       />
                     </div>
                     <div>
-                      <h4 className="font-bold text-lg text-gray-900">{testimonial.name}</h4>
-                      <p className="text-gray-600 text-sm">{testimonial.role}</p>
+                      <h4 className="font-bold text-lg text-gray-900">
+                        {testimonial.name}
+                      </h4>
+                      <p className="text-gray-600 text-sm">
+                        {testimonial.role}
+                      </p>
                     </div>
                   </div>
 
-                  <p className="text-gray-700 mb-6 italic">{testimonial.content}</p>
+                  <p className="text-gray-700 mb-6 italic">
+                    {testimonial.content}
+                  </p>
 
                   <div className="flex">
                     {Array.from({ length: 5 }).map((_, i) => (
                       <Star
                         key={i}
-                        className={`h-5 w-5 ${i < testimonial.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
+                        className={`h-5 w-5 ${
+                          i < testimonial.rating
+                            ? "text-yellow-400 fill-yellow-400"
+                            : "text-gray-300"
+                        }`}
                       />
                     ))}
                   </div>
                 </div>
-              )
+              );
             })}
           </motion.div>
         </AnimatePresence>
@@ -144,10 +161,12 @@ export default function TestimonialCarousel() {
           <button
             key={index}
             onClick={() => {
-              setDirection(index > currentIndex ? 1 : -1)
-              setCurrentIndex(index)
+              setDirection(index > currentIndex ? 1 : -1);
+              setCurrentIndex(index);
             }}
-            className={`w-3 h-3 rounded-full ${index === currentIndex ? "bg-indigo-600" : "bg-gray-300"}`}
+            className={`w-3 h-3 rounded-full ${
+              index === currentIndex ? "bg-indigo-600" : "bg-gray-300"
+            }`}
             aria-label={`Go to testimonial ${index + 1}`}
           />
         ))}
@@ -171,5 +190,5 @@ export default function TestimonialCarousel() {
         <ChevronRight className="h-5 w-5" />
       </Button>
     </div>
-  )
+  );
 }

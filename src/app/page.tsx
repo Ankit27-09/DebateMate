@@ -1,20 +1,34 @@
-"use client"
+"use client";
 
-import { useEffect, useRef, useState } from "react"
-import { motion, useAnimation, useInView, useScroll, useTransform, HTMLMotionProps } from "framer-motion"
-import { ArrowRight, Brain, CheckCircle, FileText, Map, Upload } from "lucide-react"
-import { Canvas } from "@react-three/fiber"
-import { OrbitControls } from "@react-three/drei"
-import { Button } from "@/components/ui/button"
-import { useMobile } from "@/hooks/use-mobile"
+import { useEffect, useRef, useState } from "react";
+import {
+  motion,
+  useAnimation,
+  useInView,
+  useScroll,
+  useTransform,
+  HTMLMotionProps,
+} from "framer-motion";
+import {
+  ArrowRight,
+  Brain,
+  CheckCircle,
+  FileText,
+  Map,
+  Upload,
+} from "lucide-react";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
+import { Button } from "@/components/ui/button";
+import { useMobile } from "@/hooks/use-mobile";
 
-import Footer from "@/components/footer"
-import TestimonialCarousel from "@/components/testimonial-carousel"
-import LogoMarquee from "@/components/logo-marquee"
-import { cn } from "@/lib/utils"
-import Navbar from "@/components/Navbar"
+import Footer from "@/components/footer";
+import TestimonialCarousel from "@/components/testimonial-carousel";
+import LogoMarquee from "@/components/logo-marquee";
+import { cn } from "@/lib/utils";
+import Navbar from "@/components/Navbar";
 
-const MotionButton = motion(Button)
+const MotionButton = motion(Button);
 
 function AvatarModel() {
   return (
@@ -22,45 +36,47 @@ function AvatarModel() {
       <sphereGeometry args={[1, 32, 32]} />
       <meshStandardMaterial color="#4F46E5" metalness={0.5} roughness={0.2} />
     </mesh>
-  )
+  );
 }
 
 export default function Home() {
-  const isMobile = useMobile()
-  const [isLoaded, setIsLoaded] = useState(false)
-  const { scrollYProgress } = useScroll()
+  const isMobile = useMobile();
+  const [isLoaded, setIsLoaded] = useState(false);
+  const { scrollYProgress } = useScroll();
 
-  
-  const heroRef = useRef(null)
-  const featuresRef = useRef(null)
-  const statsRef = useRef(null)
-  const testimonialRef = useRef(null)
-  const pricingRef = useRef(null)
+  const heroRef = useRef(null);
+  const featuresRef = useRef(null);
+  const statsRef = useRef(null);
+  const testimonialRef = useRef(null);
+  const pricingRef = useRef(null);
 
-  const heroInView = useInView(heroRef, { once: true })
-  const featuresInView = useInView(featuresRef, { once: true, amount: 0.2 })
-  const statsInView = useInView(statsRef, { once: true, amount: 0.3 })
-  const testimonialInView = useInView(testimonialRef, { once: true, amount: 0.3 })
-  const pricingInView = useInView(pricingRef, { once: true, amount: 0.3 })
+  const heroInView = useInView(heroRef, { once: true });
+  const featuresInView = useInView(featuresRef, { once: true, amount: 0.2 });
+  const statsInView = useInView(statsRef, { once: true, amount: 0.3 });
+  const testimonialInView = useInView(testimonialRef, {
+    once: true,
+    amount: 0.3,
+  });
+  const pricingInView = useInView(pricingRef, { once: true, amount: 0.3 });
 
-  const heroControls = useAnimation()
-  const featuresControls = useAnimation()
-  const statsControls = useAnimation()
-  const testimonialControls = useAnimation()
-  const pricingControls = useAnimation()
+  const heroControls = useAnimation();
+  const featuresControls = useAnimation();
+  const statsControls = useAnimation();
+  const testimonialControls = useAnimation();
+  const pricingControls = useAnimation();
 
   // Parallax effects
-  const heroY = useTransform(scrollYProgress, [0, 0.2], [0, -50])
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0.8])
+  const heroY = useTransform(scrollYProgress, [0, 0.2], [0, -50]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
 
   useEffect(() => {
-    setIsLoaded(true)
+    setIsLoaded(true);
 
-    if (heroInView) heroControls.start("visible")
-    if (featuresInView) featuresControls.start("visible")
-    if (statsInView) statsControls.start("visible")
-    if (testimonialInView) testimonialControls.start("visible")
-    if (pricingInView) pricingControls.start("visible")
+    if (heroInView) heroControls.start("visible");
+    if (featuresInView) featuresControls.start("visible");
+    if (statsInView) statsControls.start("visible");
+    if (testimonialInView) testimonialControls.start("visible");
+    if (pricingInView) pricingControls.start("visible");
   }, [
     heroInView,
     featuresInView,
@@ -72,7 +88,7 @@ export default function Home() {
     statsControls,
     testimonialControls,
     pricingControls,
-  ])
+  ]);
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 60 },
@@ -84,7 +100,7 @@ export default function Home() {
         ease: [0.22, 1, 0.36, 1],
       },
     },
-  }
+  };
 
   const staggerContainer = {
     hidden: { opacity: 0 },
@@ -94,14 +110,16 @@ export default function Home() {
         staggerChildren: 0.1,
       },
     },
-  }
+  };
 
   return (
     <>
-
       <main className="overflow-hidden">
         {/* Hero Section with Gradient Background */}
-        <section ref={heroRef} className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden">
+        <section
+          ref={heroRef}
+          className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden"
+        >
           {/* Background gradient */}
           <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-indigo-50 z-0" />
 
@@ -140,11 +158,18 @@ export default function Home() {
                   </span>
                 </motion.h1>
 
-                <motion.p className="text-xl md:text-2xl text-gray-700 max-w-xl" variants={fadeInUp}>
-                  1-on-1 AI-driven debates with real-time feedback. Master the art of persuasion and critical thinking.
+                <motion.p
+                  className="text-xl md:text-2xl text-gray-700 max-w-xl"
+                  variants={fadeInUp}
+                >
+                  1-on-1 AI-driven debates with real-time feedback. Master the
+                  art of persuasion and critical thinking.
                 </motion.p>
 
-                <motion.div className="flex flex-col sm:flex-row gap-4" variants={fadeInUp}>
+                <motion.div
+                  className="flex flex-col sm:flex-row gap-4"
+                  variants={fadeInUp}
+                >
                   <MotionButton
                     size="lg"
                     className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl px-8 py-6 text-lg shadow-lg hover:shadow-indigo-200 transition-all"
@@ -166,7 +191,10 @@ export default function Home() {
                   </MotionButton>
                 </motion.div>
 
-                <motion.div className="flex items-center gap-4 text-gray-600" variants={fadeInUp}>
+                <motion.div
+                  className="flex items-center gap-4 text-gray-600"
+                  variants={fadeInUp}
+                >
                   <div className="flex -space-x-2">
                     {[1, 2, 3, 4].map((i) => (
                       <div
@@ -200,10 +228,19 @@ export default function Home() {
                   <div className="pt-12 h-full">
                     <Canvas>
                       <ambientLight intensity={0.8} />
-                      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} />
+                      <spotLight
+                        position={[10, 10, 10]}
+                        angle={0.15}
+                        penumbra={1}
+                        intensity={1}
+                      />
                       <pointLight position={[-10, -10, -10]} />
                       <AvatarModel />
-                      <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={1} />
+                      <OrbitControls
+                        enableZoom={false}
+                        autoRotate
+                        autoRotateSpeed={1}
+                      />
                     </Canvas>
                   </div>
                 </div>
@@ -216,7 +253,12 @@ export default function Home() {
             className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 1, repeat: Number.POSITIVE_INFINITY, repeatType: "reverse" }}
+            transition={{
+              delay: 1,
+              duration: 1,
+              repeat: Number.POSITIVE_INFINITY,
+              repeatType: "reverse",
+            }}
           >
             <div className="w-8 h-12 rounded-full border-2 border-gray-400 flex justify-center">
               <motion.div
@@ -246,12 +288,15 @@ export default function Home() {
               >
                 Powerful Features
               </motion.div>
-              <motion.h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900" variants={fadeInUp}>
+              <motion.h2
+                className="text-4xl md:text-5xl font-bold mb-6 text-gray-900"
+                variants={fadeInUp}
+              >
                 Everything you need to become a master debater
               </motion.h2>
               <motion.p className="text-xl text-gray-600" variants={fadeInUp}>
-                Our platform combines cutting-edge AI technology with proven debate techniques to help you improve
-                faster than ever before.
+                Our platform combines cutting-edge AI technology with proven
+                debate techniques to help you improve faster than ever before.
               </motion.p>
             </motion.div>
 
@@ -309,9 +354,12 @@ export default function Home() {
               <div className="inline-block px-4 py-2 bg-indigo-100 rounded-full text-indigo-700 font-medium text-sm mb-4">
                 Simple Process
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">How DebateMate Works</h2>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+                How DebateMate Works
+              </h2>
               <p className="text-xl text-gray-600">
-                Our platform makes it easy to practice, learn, and improve your debate skills
+                Our platform makes it easy to practice, learn, and improve your
+                debate skills
               </p>
             </motion.div>
 
@@ -320,17 +368,20 @@ export default function Home() {
                 {
                   step: "01",
                   title: "Choose a Topic",
-                  description: "Select from our library of debate topics or create your own custom topic.",
+                  description:
+                    "Select from our library of debate topics or create your own custom topic.",
                 },
                 {
                   step: "02",
                   title: "Debate the AI",
-                  description: "Engage in a real-time debate with our advanced AI opponent that adapts to your style.",
+                  description:
+                    "Engage in a real-time debate with our advanced AI opponent that adapts to your style.",
                 },
                 {
                   step: "03",
                   title: "Get Feedback",
-                  description: "Receive detailed analysis and personalized tips to improve your performance.",
+                  description:
+                    "Receive detailed analysis and personalized tips to improve your performance.",
                 },
               ].map((item, index) => (
                 <motion.div
@@ -344,7 +395,9 @@ export default function Home() {
                   <div className="absolute -top-6 left-8 w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold">
                     {item.step}
                   </div>
-                  <h3 className="text-2xl font-bold mt-6 mb-4 text-gray-900">{item.title}</h3>
+                  <h3 className="text-2xl font-bold mt-6 mb-4 text-gray-900">
+                    {item.title}
+                  </h3>
                   <p className="text-gray-600">{item.description}</p>
                 </motion.div>
               ))}
@@ -368,7 +421,9 @@ export default function Home() {
                 { number: "4.9/5", label: "User Rating" },
               ].map((stat, index) => (
                 <motion.div key={index} className="p-8" variants={fadeInUp}>
-                  <div className="text-4xl md:text-5xl font-bold mb-2">{stat.number}</div>
+                  <div className="text-4xl md:text-5xl font-bold mb-2">
+                    {stat.number}
+                  </div>
                   <div className="text-indigo-200">{stat.label}</div>
                 </motion.div>
               ))}
@@ -391,11 +446,15 @@ export default function Home() {
               >
                 Testimonials
               </motion.div>
-              <motion.h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900" variants={fadeInUp}>
+              <motion.h2
+                className="text-4xl md:text-5xl font-bold mb-6 text-gray-900"
+                variants={fadeInUp}
+              >
                 What Our Users Say
               </motion.h2>
               <motion.p className="text-xl text-gray-600" variants={fadeInUp}>
-                Join thousands of satisfied debaters who have transformed their skills with DebateMate
+                Join thousands of satisfied debaters who have transformed their
+                skills with DebateMate
               </motion.p>
             </motion.div>
 
@@ -418,7 +477,10 @@ export default function Home() {
               >
                 Pricing Plans
               </motion.div>
-              <motion.h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900" variants={fadeInUp}>
+              <motion.h2
+                className="text-4xl md:text-5xl font-bold mb-6 text-gray-900"
+                variants={fadeInUp}
+              >
                 Choose Your Plan
               </motion.h2>
               <motion.p className="text-xl text-gray-600" variants={fadeInUp}>
@@ -479,7 +541,7 @@ export default function Home() {
                   key={index}
                   className={cn(
                     "relative bg-white rounded-2xl p-8 shadow-lg border-2",
-                    plan.popular ? "border-indigo-600" : "border-transparent",
+                    plan.popular ? "border-indigo-600" : "border-transparent"
                   )}
                   variants={fadeInUp}
                 >
@@ -488,9 +550,13 @@ export default function Home() {
                       Most Popular
                     </div>
                   )}
-                  <h3 className="text-2xl font-bold mb-2 text-gray-900">{plan.name}</h3>
+                  <h3 className="text-2xl font-bold mb-2 text-gray-900">
+                    {plan.name}
+                  </h3>
                   <div className="flex items-baseline mb-4">
-                    <span className="text-4xl font-bold text-gray-900">{plan.price}</span>
+                    <span className="text-4xl font-bold text-gray-900">
+                      {plan.price}
+                    </span>
                     <span className="text-gray-600 ml-1">/month</span>
                   </div>
                   <p className="text-gray-600 mb-6">{plan.description}</p>
@@ -507,7 +573,7 @@ export default function Home() {
                       "w-full py-6 rounded-xl",
                       plan.popular
                         ? "bg-indigo-600 hover:bg-indigo-700 text-white"
-                        : "bg-white border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50",
+                        : "bg-white border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50"
                     )}
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.98 }}
@@ -530,9 +596,12 @@ export default function Home() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true, amount: 0.3 }}
             >
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready to elevate your debate skills?</h2>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                Ready to elevate your debate skills?
+              </h2>
               <p className="text-xl text-indigo-100 mb-8">
-                Join thousands of users who have transformed their argumentation abilities with DebateMate.
+                Join thousands of users who have transformed their argumentation
+                abilities with DebateMate.
               </p>
               <MotionButton
                 size="lg"
@@ -550,29 +619,37 @@ export default function Home() {
 
       <Footer />
     </>
-  )
+  );
 }
 
 interface FeatureCardProps {
-  icon: React.ReactNode
-  title: string
-  description: string
-  variants: any
-  gradient: string
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  variants: any;
+  gradient: string;
 }
 
-function FeatureCard({ icon, title, description, variants, gradient }: FeatureCardProps) {
+function FeatureCard({
+  icon,
+  title,
+  description,
+  variants,
+  gradient,
+}: FeatureCardProps) {
   return (
     <motion.div
       variants={variants}
       whileHover={{ y: -8, transition: { duration: 0.3 } }}
       className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 transition-all"
     >
-      <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${gradient} flex items-center justify-center mb-6`}>
+      <div
+        className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${gradient} flex items-center justify-center mb-6`}
+      >
         {icon}
       </div>
       <h3 className="text-xl font-bold mb-3 text-gray-900">{title}</h3>
       <p className="text-gray-600">{description}</p>
     </motion.div>
-  )
+  );
 }
