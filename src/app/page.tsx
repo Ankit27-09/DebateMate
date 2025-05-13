@@ -32,6 +32,7 @@ export default function Home() {
   const { scrollYProgress } = useScroll()
 
   
+const MotionButton = motion(Button);
   const heroRef = useRef(null)
   const statsRef = useRef(null)
   const testimonialRef = useRef(null)
@@ -141,27 +142,25 @@ export default function Home() {
                 </motion.p>
 
                 <motion.div className="flex flex-col sm:flex-row gap-4" variants={fadeInUp}>
-                  <Button
+                  <MotionButton
                     size="lg"
                     className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl px-8 py-6 text-lg shadow-lg hover:shadow-indigo-200 transition-all"
-                    as={motion.button}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     Start Your First Debate
                     <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
+                  </MotionButton>
 
-                  <Button
+                  <MotionButton
                     variant="outline"
                     size="lg"
                     className="border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 rounded-xl px-8 py-6 text-lg"
-                    as={motion.button}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     See Demo
-                  </Button>
+                  </MotionButton>
                 </motion.div>
 
                 <motion.div className="flex items-center gap-4 text-gray-600" variants={fadeInUp}>
