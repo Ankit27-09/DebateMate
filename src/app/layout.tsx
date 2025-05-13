@@ -1,9 +1,11 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
-import ClientOnly from "@/components/ClientOnly"; // Add this
+import ClientOnly from "@/components/ClientOnly";
 import Navbar from "@/components/Navbar";
+import ScrollToTop from "@/components/ScrollToTop";
 import { ClerkProvider } from '@clerk/nextjs';
 import "./globals.css";
+import { ReactNode } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,15 +22,14 @@ export const metadata = {
   description: "1-on-1 AI-driven debates with real-time feedback.",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
-      <html lang="en">
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <html lang="en">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {/* Scroll to Top stays outside all providers for visibility */}
+        <ScrollToTop />
+
+        <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
           <ClientOnly>
             <ThemeProvider
               attribute="class"
@@ -40,8 +41,8 @@ export default function RootLayout({
               {children}
             </ThemeProvider>
           </ClientOnly>
-        </body>
-      </html>
-    </ClerkProvider>
+        </ClerkProvider>
+      </body>
+    </html>
   );
 }
