@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from "react"
-import { motion, useAnimation, useInView, useScroll, useTransform, HTMLMotionProps } from "framer-motion"
+import { motion, useAnimation, useInView, useScroll, useTransform } from "framer-motion"
 import { ArrowRight, Brain, CheckCircle, FileText, Map, Upload } from "lucide-react"
 import { Canvas } from "@react-three/fiber"
 import { OrbitControls } from "@react-three/drei"
@@ -15,8 +15,9 @@ import TestimonialCarousel from "@/components/testimonial-carousel"
 import LogoMarquee from "@/components/logo-marquee"
 import { cn } from "@/lib/utils"
 import Navbar from "@/components/Navbar"
-
-const MotionButton = motion(Button)
+import FeaturesSection from "@/components/FeaturesSection"
+import TestimonialsSection from "@/components/TestimonialsSection"
+import PricingSection from "@/components/PricingSection"
 
   
 function AvatarModel() {
@@ -33,21 +34,23 @@ export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false)
   const { scrollYProgress } = useScroll()
 
+
   const router = useRouter();
+
+  
+const MotionButton = motion(Button);
+
   const heroRef = useRef(null)
-  const featuresRef = useRef(null)
   const statsRef = useRef(null)
   const testimonialRef = useRef(null)
   const pricingRef = useRef(null)
 
   const heroInView = useInView(heroRef, { once: true })
-  const featuresInView = useInView(featuresRef, { once: true, amount: 0.2 })
   const statsInView = useInView(statsRef, { once: true, amount: 0.3 })
   const testimonialInView = useInView(testimonialRef, { once: true, amount: 0.3 })
   const pricingInView = useInView(pricingRef, { once: true, amount: 0.3 })
 
   const heroControls = useAnimation()
-  const featuresControls = useAnimation()
   const statsControls = useAnimation()
   const testimonialControls = useAnimation()
   const pricingControls = useAnimation()
@@ -60,18 +63,15 @@ export default function Home() {
     setIsLoaded(true)
 
     if (heroInView) heroControls.start("visible")
-    if (featuresInView) featuresControls.start("visible")
     if (statsInView) statsControls.start("visible")
     if (testimonialInView) testimonialControls.start("visible")
     if (pricingInView) pricingControls.start("visible")
   }, [
     heroInView,
-    featuresInView,
     statsInView,
     testimonialInView,
     pricingInView,
     heroControls,
-    featuresControls,
     statsControls,
     testimonialControls,
     pricingControls,
@@ -101,6 +101,7 @@ export default function Home() {
 
   return (
     <>
+      <Navbar />
 
       <main className="overflow-hidden">
         {/* Hero Section with Gradient Background */}
@@ -236,69 +237,7 @@ export default function Home() {
         <LogoMarquee />
 
         {/* Features Section */}
-        <section ref={featuresRef} className="py-24 bg-white">
-          <div className="container mx-auto px-4">
-            <motion.div
-              className="text-center max-w-3xl mx-auto mb-16"
-              initial="hidden"
-              animate={featuresControls}
-              variants={staggerContainer}
-            >
-              <motion.div
-                className="inline-block px-4 py-2 bg-indigo-100 rounded-full text-indigo-700 font-medium text-sm mb-4"
-                variants={fadeInUp}
-              >
-                Powerful Features
-              </motion.div>
-              <motion.h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900" variants={fadeInUp}>
-                Everything you need to become a master debater
-              </motion.h2>
-              <motion.p className="text-xl text-gray-600" variants={fadeInUp}>
-                Our platform combines cutting-edge AI technology with proven debate techniques to help you improve
-                faster than ever before.
-              </motion.p>
-            </motion.div>
-
-            <motion.div
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
-              initial="hidden"
-              animate={featuresControls}
-              variants={staggerContainer}
-            >
-              <FeatureCard
-                icon={<Brain className="h-10 w-10 text-white" />}
-                title="AI Opponent"
-                description="Practice with our advanced AI that adapts to your skill level and debate style."
-                variants={fadeInUp}
-                gradient="from-indigo-500 to-indigo-700"
-              />
-
-              <FeatureCard
-                icon={<FileText className="h-10 w-10 text-white" />}
-                title="Deep Reports"
-                description="Get comprehensive analysis of your arguments, logical fallacies, and persuasion techniques."
-                variants={fadeInUp}
-                gradient="from-teal-500 to-teal-700"
-              />
-
-              <FeatureCard
-                icon={<Map className="h-10 w-10 text-white" />}
-                title="Personalized Roadmaps"
-                description="Follow a custom learning path based on your strengths and areas for improvement."
-                variants={fadeInUp}
-                gradient="from-purple-500 to-purple-700"
-              />
-
-              <FeatureCard
-                icon={<Upload className="h-10 w-10 text-white" />}
-                title="Upload & Analyze"
-                description="Upload recordings of your real debates for AI-powered feedback and suggestions."
-                variants={fadeInUp}
-                gradient="from-blue-500 to-blue-700"
-              />
-            </motion.div>
-          </div>
-        </section>
+        <FeaturesSection />
 
         {/* How It Works Section */}
         <section className="py-24 bg-gray-50">
@@ -381,173 +320,36 @@ export default function Home() {
         </section>
 
         {/* Testimonials Section */}
-        <section ref={testimonialRef} className="py-24 bg-white">
-          <div className="container mx-auto px-4">
-            <motion.div
-              className="text-center max-w-3xl mx-auto mb-16"
-              initial="hidden"
-              animate={testimonialControls}
-              variants={staggerContainer}
-            >
-              <motion.div
-                className="inline-block px-4 py-2 bg-indigo-100 rounded-full text-indigo-700 font-medium text-sm mb-4"
-                variants={fadeInUp}
-              >
-                Testimonials
-              </motion.div>
-              <motion.h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900" variants={fadeInUp}>
-                What Our Users Say
-              </motion.h2>
-              <motion.p className="text-xl text-gray-600" variants={fadeInUp}>
-                Join thousands of satisfied debaters who have transformed their skills with DebateMate
-              </motion.p>
-            </motion.div>
-
-            <TestimonialCarousel />
-          </div>
-        </section>
+        <TestimonialsSection />
 
         {/* Pricing Section */}
-        <section ref={pricingRef} className="py-24 bg-gray-50">
-          <div className="container mx-auto px-4">
-            <motion.div
-              className="text-center max-w-3xl mx-auto mb-16"
-              initial="hidden"
-              animate={pricingControls}
-              variants={staggerContainer}
-            >
-              <motion.div
-                className="inline-block px-4 py-2 bg-indigo-100 rounded-full text-indigo-700 font-medium text-sm mb-4"
-                variants={fadeInUp}
-              >
-                Pricing Plans
-              </motion.div>
-              <motion.h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900" variants={fadeInUp}>
-                Choose Your Plan
-              </motion.h2>
-              <motion.p className="text-xl text-gray-600" variants={fadeInUp}>
-                Flexible options to suit your needs and budget
-              </motion.p>
-            </motion.div>
-
-            <motion.div
-              className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto"
-              initial="hidden"
-              animate={pricingControls}
-              variants={staggerContainer}
-            >
-              {[
-                {
-                  name: "Starter",
-                  price: "$9",
-                  description: "Perfect for beginners",
-                  features: [
-                    "5 AI debates per month",
-                    "Basic performance analytics",
-                    "Access to debate topics library",
-                    "Email support",
-                  ],
-                  popular: false,
-                  buttonText: "Get Started",
-                },
-                {
-                  name: "Pro",
-                  price: "$29",
-                  description: "Most popular choice",
-                  features: [
-                    "Unlimited AI debates",
-                    "Advanced analytics dashboard",
-                    "Personalized improvement roadmap",
-                    "Upload & analyze your debates",
-                    "Priority support",
-                  ],
-                  popular: true,
-                  buttonText: "Get Started",
-                },
-                {
-                  name: "Team",
-                  price: "$99",
-                  description: "For debate teams & clubs",
-                  features: [
-                    "Everything in Pro plan",
-                    "Up to 10 team members",
-                    "Team analytics & leaderboard",
-                    "Custom debate topics",
-                    "Dedicated account manager",
-                  ],
-                  popular: false,
-                  buttonText: "Contact Sales",
-                },
-              ].map((plan, index) => (
-                <motion.div
-                  key={index}
-                  className={cn(
-                    "relative bg-white rounded-2xl p-8 shadow-lg border-2",
-                    plan.popular ? "border-indigo-600" : "border-transparent",
-                  )}
-                  variants={fadeInUp}
-                >
-                  {plan.popular && (
-                    <div className="absolute -top-5 left-1/2 transform -translate-x-1/2 bg-indigo-600 text-white px-4 py-1 rounded-full text-sm font-medium">
-                      Most Popular
-                    </div>
-                  )}
-                  <h3 className="text-2xl font-bold mb-2 text-gray-900">{plan.name}</h3>
-                  <div className="flex items-baseline mb-4">
-                    <span className="text-4xl font-bold text-gray-900">{plan.price}</span>
-                    <span className="text-gray-600 ml-1">/month</span>
-                  </div>
-                  <p className="text-gray-600 mb-6">{plan.description}</p>
-                  <ul className="space-y-3 mb-8">
-                    {plan.features.map((feature, i) => (
-                      <li key={i} className="flex items-start">
-                        <CheckCircle className="h-5 w-5 text-indigo-600 mr-2 flex-shrink-0 mt-0.5" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <MotionButton
-                    className={cn(
-                      "w-full py-6 rounded-xl",
-                      plan.popular
-                        ? "bg-indigo-600 hover:bg-indigo-700 text-white"
-                        : "bg-white border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50",
-                    )}
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    {plan.buttonText}
-                  </MotionButton>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </section>
+        <PricingSection />
 
         {/* CTA Section */}
         <section className="py-24 bg-gradient-to-r from-indigo-600 to-indigo-800 text-white">
           <div className="container mx-auto px-4">
             <motion.div
-              className="text-center max-w-3xl mx-auto"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true, amount: 0.3 }}
+            className="text-center max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready to elevate your debate skills?</h2>
+            <p className="text-xl text-indigo-100 mb-8">
+              Join thousands of users who have transformed their argumentation abilities with DebateMate.
+            </p>
+
+            <MotionButton
+              size="lg"
+              className="bg-white text-indigo-600 hover:bg-indigo-50 rounded-xl px-8 py-6 text-lg shadow-lg"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready to elevate your debate skills?</h2>
-              <p className="text-xl text-indigo-100 mb-8">
-                Join thousands of users who have transformed their argumentation abilities with DebateMate.
-              </p>
-              <MotionButton
-                size="lg"
-                className="bg-white text-indigo-600 hover:bg-indigo-50 rounded-xl px-8 py-6 text-lg shadow-lg"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Start Your Free Trial
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </MotionButton>
-            </motion.div>
+              Start Your Free Trial
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </MotionButton>
+          </motion.div>
           </div>
         </section>
       </main>
@@ -557,26 +359,3 @@ export default function Home() {
   )
 }
 
-interface FeatureCardProps {
-  icon: React.ReactNode
-  title: string
-  description: string
-  variants: any
-  gradient: string
-}
-
-function FeatureCard({ icon, title, description, variants, gradient }: FeatureCardProps) {
-  return (
-    <motion.div
-      variants={variants}
-      whileHover={{ y: -8, transition: { duration: 0.3 } }}
-      className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 transition-all"
-    >
-      <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${gradient} flex items-center justify-center mb-6`}>
-        {icon}
-      </div>
-      <h3 className="text-xl font-bold mb-3 text-gray-900">{title}</h3>
-      <p className="text-gray-600">{description}</p>
-    </motion.div>
-  )
-}
