@@ -321,27 +321,27 @@ const MotionButton = motion(Button);
         <section className="py-24 bg-gradient-to-r from-indigo-600 to-indigo-800 text-white">
           <div className="container mx-auto px-4">
             <motion.div
-              className="text-center max-w-3xl mx-auto"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true, amount: 0.3 }}
+            className="text-center max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready to elevate your debate skills?</h2>
+            <p className="text-xl text-indigo-100 mb-8">
+              Join thousands of users who have transformed their argumentation abilities with DebateMate.
+            </p>
+
+            <MotionButton
+              size="lg"
+              className="bg-white text-indigo-600 hover:bg-indigo-50 rounded-xl px-8 py-6 text-lg shadow-lg"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready to elevate your debate skills?</h2>
-              <p className="text-xl text-indigo-100 mb-8">
-                Join thousands of users who have transformed their argumentation abilities with DebateMate.
-              </p>
-              <Button
-                size="lg"
-                className="bg-white text-indigo-600 hover:bg-indigo-50 rounded-xl px-8 py-6 text-lg shadow-lg"
-                as={motion.button}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Start Your Free Trial
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </motion.div>
+              Start Your Free Trial
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </MotionButton>
+          </motion.div>
           </div>
         </section>
       </main>
