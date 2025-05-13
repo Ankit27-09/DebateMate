@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import { useEffect, useRef, useState } from "react"
 import { motion, useAnimation, useInView, useScroll, useTransform, HTMLMotionProps } from "framer-motion"
@@ -8,6 +8,8 @@ import { OrbitControls } from "@react-three/drei"
 import { Button } from "@/components/ui/button"
 import { useMobile } from "@/hooks/use-mobile"
 
+
+import { useRouter } from 'next/navigation'
 import Footer from "@/components/footer"
 import TestimonialCarousel from "@/components/testimonial-carousel"
 import LogoMarquee from "@/components/logo-marquee"
@@ -16,6 +18,7 @@ import Navbar from "@/components/Navbar"
 
 const MotionButton = motion(Button)
 
+  
 function AvatarModel() {
   return (
     <mesh position={[0, 0, 0]} rotation={[0, Math.PI / 4, 0]}>
@@ -30,7 +33,7 @@ export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false)
   const { scrollYProgress } = useScroll()
 
-  
+  const router = useRouter();
   const heroRef = useRef(null)
   const featuresRef = useRef(null)
   const statsRef = useRef(null)
@@ -145,15 +148,16 @@ export default function Home() {
                 </motion.p>
 
                 <motion.div className="flex flex-col sm:flex-row gap-4" variants={fadeInUp}>
-                  <MotionButton
-                    size="lg"
-                    className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl px-8 py-6 text-lg shadow-lg hover:shadow-indigo-200 transition-all"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    Start Your First Debate
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </MotionButton>
+                <MotionButton
+      size="lg"
+      className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl px-8 py-6 text-lg shadow-lg hover:shadow-indigo-200 transition-all"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.98 }}
+      onClick={() => router.push('/debate')}
+    >
+      Start Your First Debate
+      <ArrowRight className="ml-2 h-5 w-5" />
+    </MotionButton>
 
                   <MotionButton
                     variant="outline"
