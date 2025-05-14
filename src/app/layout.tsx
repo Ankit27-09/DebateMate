@@ -1,7 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
-import ClientOnly from "@/components/ClientOnly";
-import Navbar from "@/components/Navbar";
+import navbar from "@/components/Navbar";
 import ScrollToTop from "@/components/ScrollToTop";
 import { ClerkProvider } from '@clerk/nextjs';
 import "./globals.css";
@@ -24,25 +23,23 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {}
-        <ScrollToTop />
-
-        <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
-          <ClientOnly>
+    <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
+      <html lang="en">
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+          <ScrollToTop />
+         
             <ThemeProvider
               attribute="class"
               defaultTheme="light"
               enableSystem
               disableTransitionOnChange
             >
-              <Navbar />
+              <navbar />
               {children}
             </ThemeProvider>
-          </ClientOnly>
-        </ClerkProvider>
-      </body>
-    </html>
+       
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
