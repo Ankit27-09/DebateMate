@@ -151,7 +151,11 @@ export default function Navbar() {
                   </Button>
                 </SignedIn>
 
-                {/* Mobile Menu Button */}
+                
+              </div>
+            </>
+          )}
+          {/* Mobile Menu Button */}
                 {isMobile && (
                   <motion.button
                     className="md:hidden text-accent-foreground"
@@ -167,9 +171,6 @@ export default function Navbar() {
                     )}
                   </motion.button>
                 )}
-              </div>
-            </>
-          )}
 
           {/* CTA Buttons */}
         </div>
