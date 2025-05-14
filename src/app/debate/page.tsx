@@ -98,7 +98,7 @@ export default function DebatePage() {
                       )}
                       {message.type === 'ai' && !message.isError && (
                         <div className="mb-1 text-xs text-gray-500 font-medium">
-                          Virtual Debater
+                          Virtual Debater:
                         </div>
                       )}
                       <div className="whitespace-pre-wrap">
