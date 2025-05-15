@@ -154,7 +154,7 @@ const MotionButton = motion(Button);
       className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl px-8 py-6 text-lg shadow-lg hover:shadow-indigo-200 transition-all"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.98 }}
-      onClick={() => router.push('/debate')}
+     
     >
       Start Your First Debate
       <ArrowRight className="ml-2 h-5 w-5" />
