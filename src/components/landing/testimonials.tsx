@@ -233,7 +233,7 @@ const testimonials = [
 
 export function TestimonialMarquee() {
   return (
-      <div className="relative mt-6 max-h-screen overflow-hidden">
+      <div className="bg-muted relative mt-6 max-h-screen overflow-hidden">
         <div className="gap-4 md:columns-2 xl:columns-3 2xl:columns-4">
           {Array(Math.ceil(testimonials.length / 3))
             .fill(0)

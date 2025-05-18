@@ -19,6 +19,7 @@ import { useEffect, useRef, useState } from "react";
 import FeaturesPage from "./features/page";
 import PricingPage from "./pricing/page";
 import TestimonialsPage from "./testimonials/page";
+import HowItWorksPage from "./works/page";
 
 function AvatarModel() {
   return (
@@ -108,10 +109,10 @@ export default function Home() {
         {/* Hero Section with Gradient Background */}
         <section
           ref={heroRef}
-          className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden"
+          className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden dark:bg-gray-900"
         >
           {/* Background gradient */}
-          <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-indigo-50 z-0" />
+          <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 z-0" />
 
           {/* Animated background shapes */}
           <div className="absolute inset-0 overflow-hidden z-0">
@@ -139,7 +140,7 @@ export default function Home() {
                 </motion.div>
 
                 <motion.h1
-                  className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-gray-900"
+                  className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-gray-900 dark:text-white"
                   variants={fadeInUp}
                 >
                   <span className="block">DebateMate:</span>
@@ -149,7 +150,7 @@ export default function Home() {
                 </motion.h1>
 
                 <motion.p
-                  className="text-xl md:text-2xl text-gray-700 max-w-xl"
+                  className="text-xl md:text-2xl text-gray-700 max-w-xl dark:text-gray-400"
                   variants={fadeInUp}
                 >
                   1-on-1 AI-driven debates with real-time feedback. Master the
@@ -182,7 +183,7 @@ export default function Home() {
                 </motion.div>
 
                 <motion.div
-                  className="flex items-center gap-4 text-gray-600"
+                  className="flex items-center gap-4 text-gray-600 dark:text-gray-500"
                   variants={fadeInUp}
                 >
                   <div className="flex -space-x-2">
@@ -206,8 +207,8 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-teal-400 rounded-3xl transform rotate-3 opacity-20" />
-                <div className="absolute inset-0 bg-white rounded-3xl shadow-xl overflow-hidden">
-                  <div className="absolute top-0 left-0 right-0 h-12 bg-gray-50 flex items-center px-4">
+                <div className="absolute inset-0 bg-white dark:bg-gray-700 rounded-3xl shadow-xl overflow-hidden">
+                  <div className="absolute top-0 left-0 right-0 h-12 dark:bg-gray-800 bg-gray-50 flex items-center px-4">
                     <div className="flex space-x-2">
                       <div className="w-3 h-3 rounded-full bg-red-400" />
                       <div className="w-3 h-3 rounded-full bg-yellow-400" />
@@ -240,7 +241,7 @@ export default function Home() {
 
           {/* Scroll indicator */}
           <motion.div
-            className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+            className="absolute bottom-10 left-1/2 transform -translate-x-1/2 "
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -250,9 +251,9 @@ export default function Home() {
               repeatType: "reverse",
           }}
         >
-          <div className="w-8 h-12 rounded-full border-2 border-gray-400 flex justify-center items-start pt-2">
+          <div className="w-8 h-12 rounded-full border-2 border-gray-400 flex justify-center items-start pt-2 dark:border-gray-500">
             <motion.div
-          className="text-gray-400 text-2xl font-bold"
+          className="text-gray-400 text-2xl font-bold dark:text-gray-500"
           animate={{ y: [0, 5, 0] }}
           transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
         >
@@ -260,7 +261,7 @@ export default function Home() {
         </motion.div>
           </div>
         </motion.div>
-        </section>
+        </section>  
 
         {/* Logo Marquee */}
         <LogoMarquee />
@@ -269,68 +270,7 @@ export default function Home() {
         <FeaturesPage />
 
         {/* How It Works Section */}
-        <section className="py-24 bg-gray-50">
-          <div className="container mx-auto px-4">
-            <motion.div
-              className="text-center max-w-3xl mx-auto mb-16"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true, amount: 0.3 }}
-            >
-              <div className="inline-block px-4 py-2 bg-indigo-100 rounded-full text-indigo-700 font-medium text-sm mb-4">
-                Simple Process
-              </div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-                How DebateMate Works
-              </h2>
-              <p className="text-xl text-gray-600">
-                Our platform makes it easy to practice, learn, and improve your
-                debate skills
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              {[
-                {
-                  step: "01",
-                  title: "Choose a Topic",
-                  description:
-                    "Select from our library of debate topics or create your own custom topic.",
-                },
-                {
-                  step: "02",
-                  title: "Debate the AI",
-                  description:
-                    "Engage in a real-time debate with our advanced AI opponent that adapts to your style.",
-                },
-                {
-                  step: "03",
-                  title: "Get Feedback",
-                  description:
-                    "Receive detailed analysis and personalized tips to improve your performance.",
-                },
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  className="relative bg-white rounded-2xl p-8 shadow-lg"
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                >
-                  <div className="absolute -top-6 left-8 w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold">
-                    {item.step}
-                  </div>
-                  <h3 className="text-2xl font-bold mt-6 mb-4 text-gray-900">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-600">{item.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <HowItWorksPage/>
 
         {/* Stats Section */}
         <section ref={statsRef} className="py-24 bg-indigo-900 text-white">

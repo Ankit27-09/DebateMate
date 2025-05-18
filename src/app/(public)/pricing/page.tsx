@@ -11,7 +11,7 @@ import { XIcon, CheckIcon } from "lucide-react";
 
 export default function PricingPage() {
   return (
-    <div>
+    <div className="bg-muted">
       <PricingCards />
       <div className="container">
         <div className="mt-12">
@@ -107,7 +107,7 @@ export default function PricingPage() {
         </div>
       </div>
 
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-muted">
         <div className="container">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold mb-8 text-center">
