@@ -248,16 +248,18 @@ export default function Home() {
               duration: 1,
               repeat: Number.POSITIVE_INFINITY,
               repeatType: "reverse",
-            }}
-          >
-            <div className="w-8 h-12 rounded-full border-2 border-gray-400 flex justify-center">
-              <motion.div
-                className="w-1 h-3 bg-gray-400 rounded-full mt-2"
-                animate={{ y: [0, 6, 0] }}
-                transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
-              />
-            </div>
-          </motion.div>
+          }}
+        >
+          <div className="w-8 h-12 rounded-full border-2 border-gray-400 flex justify-center items-start pt-2">
+            <motion.div
+          className="text-gray-400 text-2xl font-bold"
+          animate={{ y: [0, 5, 0] }}
+          transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-down-icon lucide-arrow-down"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+        </motion.div>
+          </div>
+        </motion.div>
         </section>
 
         {/* Logo Marquee */}

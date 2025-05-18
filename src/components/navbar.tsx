@@ -15,6 +15,7 @@ import {
 } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { ModeToggle } from "./mode-toggle";
 
 export default function Navbar() {
   const [isClient, setIsClient] = useState(false);
@@ -111,6 +112,13 @@ export default function Navbar() {
               </nav>
               <div className="flex items-center space-x-4">
                 <SignedOut>
+                  <motion.div
+                    initial={{ opacity: 0, x: 10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.7, duration: 0.5 }}
+                  >
+                    <ModeToggle/>
+                  </motion.div>
                   {/* Sign In / Sign Up buttons for signed-out users */}
                   {!isMobile && (
                     <motion.div
@@ -128,7 +136,7 @@ export default function Navbar() {
                       </SignInButton>
                     </motion.div>
                   )}
-
+            
                   <motion.div
                     initial={{ opacity: 0, x: 10 }}
                     animate={{ opacity: 1, x: 0 }}

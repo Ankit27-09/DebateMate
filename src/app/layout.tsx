@@ -1,9 +1,9 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import { ThemeProvider } from "next-themes";
 import ScrollToTop from "@/components/ScrollToTop";
 import { ClerkProvider } from '@clerk/nextjs';
 import "./globals.css";
 import { ReactNode } from "react";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,7 +26,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <html lang="en">
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
           <ScrollToTop />
-         
             <ThemeProvider
               attribute="class"
               defaultTheme="light"
