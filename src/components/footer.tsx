@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
-import { ModeToggle } from "./mode-toggle";
 
 export default function Footer() {
   return (
@@ -48,7 +47,6 @@ export default function Footer() {
                 <Linkedin className="h-5 w-5" />
               </a>
             </div>
-            <ModeToggle />
           </div>
 
           {/* Quick Links */}

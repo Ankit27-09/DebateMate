@@ -11,10 +11,10 @@ import {
   SignUpButton,
   SignedIn,
   SignedOut,
-  UserButton,
 } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import ModeToggle from "@/components/mode-toggle";
 
 export default function Navbar() {
   const [isClient, setIsClient] = useState(false);
@@ -24,27 +24,20 @@ export default function Navbar() {
   const pathname = usePathname();
 
   useEffect(() => {
-    setIsClient(true); // Ensure component runs only on the client
+    setIsClient(true);
   }, []);
 
   useEffect(() => {
     if (isClient) {
       const handleScroll = () => {
-        if (window.scrollY > 10) {
-          setIsScrolled(true);
-        } else {
-          setIsScrolled(false);
-        }
+        setIsScrolled(window.scrollY > 10);
       };
-
       window.addEventListener("scroll", handleScroll);
       return () => window.removeEventListener("scroll", handleScroll);
     }
   }, [isClient]);
 
-  if (!isClient) {
-    return null;
-  }
+  if (!isClient) return null;
 
   const navLinks = [
     { name: "Features", href: "/features" },
@@ -54,19 +47,22 @@ export default function Navbar() {
     { name: "Roadmap", href: "/roadmap" },
   ];
 
+  const closeMobileMenu = () => setMobileMenuOpen(false);
+
   return (
     <header
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled
-          ? "bg-background/70 backdrop-blur-md shadow-md py-3"
-          : "bg-transparent py-5"
-      )}
-    >
+  className={cn(
+    "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+    isScrolled
+      ? "bg-background/70 backdrop-blur-md shadow-md py-3"
+      : "bg-transparent py-5 dark:bg-gray-900/90 dark:backdrop-blur-md"
+  )}
+>
+
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
+          <Link href="/" className="flex items-center" onClick={closeMobileMenu}>
             <motion.div
               className="flex items-center"
               initial={{ opacity: 0 }}
@@ -76,9 +72,7 @@ export default function Navbar() {
               <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-800 flex items-center justify-center text-white font-bold text-xl mr-2">
                 D
               </div>
-              <span className="text-xl font-bold text-foreground">
-                DebateMate
-              </span>
+              <span className="text-xl font-bold text-foreground">DebateMate</span>
             </motion.div>
           </Link>
 
@@ -111,24 +105,20 @@ export default function Navbar() {
               </nav>
               <div className="flex items-center space-x-4">
                 <SignedOut>
-                  {/* Sign In / Sign Up buttons for signed-out users */}
-                  {!isMobile && (
-                    <motion.div
-                      initial={{ opacity: 0, x: 10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.6, duration: 0.5 }}
-                    >
-                      <SignInButton>
-                        <Button
-                          variant="outline"
-                          className="border-indigo-600 text-indigo-600 hover:bg-indigo-50"
-                        >
-                          Log In
-                        </Button>
-                      </SignInButton>
-                    </motion.div>
-                  )}
-
+                  <motion.div
+                    initial={{ opacity: 0, x: 10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.6, duration: 0.5 }}
+                  >
+                    <SignInButton>
+                      <Button
+                        variant="outline"
+                        className="border-indigo-600 text-indigo-600 hover:bg-indigo-50"
+                      >
+                        Log In
+                      </Button>
+                    </SignInButton>
+                  </motion.div>
                   <motion.div
                     initial={{ opacity: 0, x: 10 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -151,28 +141,25 @@ export default function Navbar() {
                   </Button>
                 </SignedIn>
 
-                
+                {/* Mode Toggle */}
+                <ModeToggle />
               </div>
             </>
           )}
-          {/* Mobile Menu Button */}
-                {isMobile && (
-                  <motion.button
-                    className="md:hidden text-accent-foreground"
-                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.8 }}
-                  >
-                    {mobileMenuOpen ? (
-                      <X className="h-6 w-6" />
-                    ) : (
-                      <Menu className="h-6 w-6" />
-                    )}
-                  </motion.button>
-                )}
 
-          {/* CTA Buttons */}
+          {/* Mobile Menu Button */}
+          {isMobile && (
+            <motion.button
+              className="md:hidden text-accent-foreground"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </motion.button>
+          )}
         </div>
       </div>
 
@@ -198,70 +185,47 @@ export default function Navbar() {
                     <Link
                       href={link.href}
                       className="text-accent-foreground hover:text-indigo-600 font-medium block py-2"
-                      onClick={() => setMobileMenuOpen(false)}
+                      onClick={closeMobileMenu}
                     >
                       {link.name}
                     </Link>
                   </motion.div>
                 ))}
-                <div className="flex items-center space-x-4">
+                <div className="flex flex-col space-y-3 mt-4">
                   <SignedOut>
-                    {/* Sign In / Sign Up buttons for signed-out users */}
-                    {!isMobile && (
-                      <motion.div
-                        initial={{ opacity: 0, x: 10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.6, duration: 0.5 }}
+                    <SignInButton>
+                      <Button
+                        variant="outline"
+                        className="border-indigo-600 text-indigo-600 hover:bg-indigo-50 w-full"
+                        onClick={closeMobileMenu}
                       >
-                        <SignInButton>
-                          <Button
-                            variant="outline"
-                            className="border-indigo-600 text-indigo-600 hover:bg-indigo-50"
-                          >
-                            Log In
-                          </Button>
-                        </SignInButton>
-                      </motion.div>
-                    )}
-
-                    <motion.div
-                      initial={{ opacity: 0, x: 10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.7, duration: 0.5 }}
-                    >
-                      <SignUpButton>
-                        <Button className="bg-indigo-600 hover:bg-indigo-700 text-white">
-                          Sign Up Free
-                        </Button>
-                      </SignUpButton>
-                    </motion.div>
+                        Log In
+                      </Button>
+                    </SignInButton>
+                    <SignUpButton>
+                      <Button
+                        className="bg-indigo-600 hover:bg-indigo-700 text-white w-full"
+                        onClick={closeMobileMenu}
+                      >
+                        Sign Up Free
+                      </Button>
+                    </SignUpButton>
                   </SignedOut>
 
                   <SignedIn>
                     <Button
                       asChild
-                      className="bg-indigo-600 hover:bg-indigo-700 text-white"
+                      className="bg-indigo-600 hover:bg-indigo-700 text-white w-full"
+                      onClick={closeMobileMenu}
                     >
                       <Link href="/dashboard">Dashboard</Link>
                     </Button>
                   </SignedIn>
 
-                  {/* Mobile Menu Button */}
-                  {isMobile && (
-                    <motion.button
-                      className="md:hidden text-accent-foreground"
-                      onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.8 }}
-                    >
-                      {mobileMenuOpen ? (
-                        <X className="h-6 w-6" />
-                      ) : (
-                        <Menu className="h-6 w-6" />
-                      )}
-                    </motion.button>
-                  )}
+                  {/* ModeToggle in mobile menu */}
+                  <div>
+                    <ModeToggle />
+                  </div>
                 </div>
               </nav>
             </div>
