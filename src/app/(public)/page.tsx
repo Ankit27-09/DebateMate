@@ -350,7 +350,7 @@ const MotionButton = motion(Button);
         </section>
       </main>
 
-      <Footer />
+      {/* <Footer /> Removed to prevent duplicate footer */}
     </>
   )
 }
