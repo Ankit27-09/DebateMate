@@ -48,7 +48,6 @@ export default function Footer() {
                 <Linkedin className="h-5 w-5" />
               </a>
             </div>
-            <ModeToggle />
           </div>
 
           {/* Quick Links */}
