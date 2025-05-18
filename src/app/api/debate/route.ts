@@ -1,26 +1,41 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextResponse } from 'next/server';
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+if (!process.env.GEMINI_API_KEY) {
+  throw new Error('GEMINI_API_KEY is not set in environment variables');
+}
+
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 export async function POST(req: Request) {
   try {
-    const { userInput, stance } = await req.json();
+    const { userInput, stance, isFirstMessage } = await req.json();
 
-    // Enhanced prompt that asks for a more detailed and structured response
-    const prompt = `You are an AI debate coach helping users practice their debate skills.
+    let prompt;
+    if (isFirstMessage) {
+      prompt = `You are Professor Logic, an AI debate partner.
+The user wants to debate about: "${userInput}"
 
-The user has presented this argument with a "${stance}" stance: "${userInput}".
+Provide a response that:
+1. Acknowledges their chosen topic
+2. Takes the opposing position
+3. Asks them to make the opening statement
 
-Provide a strong ${stance === "pro" ? "counter (con)" : "supportive (pro)"} argument.
+Keep your response concise and engaging.`;
+    } else {
+      prompt = `You are Professor Logic, an AI debate partner engaged in a debate.
 
-Your response should:
-1. Be concise but impactful (3-4 sentences)
-2. Include at least one piece of evidence or reasoning
-3. Be persuasive and logically sound
-4. End with a challenging question that makes the user think about their stance
+The user has argued: "${userInput}"
+${stance ? `They are taking a "${stance}" stance.` : ''}
 
-Keep your overall response under 100 words for quick, impactful debate practice.`;
+Provide a ${stance === "pro" ? "counter (con)" : "supportive (pro)"} argument that:
+1. Is concise but impactful (3-4 sentences)
+2. Includes at least one piece of evidence or reasoning
+3. Is persuasive and logically sound
+4. Ends with a thought-provoking question
+
+Keep your response under 100 words for quick, engaging debate practice.`;
+    }
 
     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 

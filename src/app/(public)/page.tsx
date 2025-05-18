@@ -14,6 +14,7 @@ import FeaturesPage from "./features/page"
 import TestimonialsPage from "./testimonials/page"
 import PricingPage from "./pricing/page"
 import Navbar from "@/components/navbar"
+import Link from "next/link"
 
   
 function AvatarModel() {
@@ -145,16 +146,17 @@ const MotionButton = motion(Button);
                 </motion.p>
 
                 <motion.div className="flex flex-col sm:flex-row gap-4" variants={fadeInUp}>
-                <MotionButton
-      size="lg"
-      className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl px-8 py-6 text-lg shadow-lg hover:shadow-indigo-200 transition-all"
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.98 }}
-     
-    >
-      Start Your First Debate
-      <ArrowRight className="ml-2 h-5 w-5" />
-    </MotionButton>
+                <Link href="/debate/start">
+                  <MotionButton
+                    size="lg"
+                    className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl px-8 py-6 text-lg shadow-lg hover:shadow-indigo-200 transition-all"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    Start Your First Debate
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </MotionButton>
+                </Link>
 
                   <MotionButton
                     variant="outline"
