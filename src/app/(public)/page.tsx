@@ -15,6 +15,7 @@ import {
 } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import FeaturesPage from "./features/page";
 import PricingPage from "./pricing/page";
@@ -160,25 +161,28 @@ export default function Home() {
                   className="flex flex-col sm:flex-row gap-4"
                   variants={fadeInUp}
                 >
-                  <MotionButton
-                    size="lg"
-                    className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl px-8 py-6 text-lg shadow-lg hover:shadow-indigo-200 transition-all"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    Start Your First Debate
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </MotionButton>
-
-                  <MotionButton
-                    variant="outline"
-                    size="lg"
-                    className="border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 rounded-xl px-8 py-6 text-lg"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    See Demo
-                  </MotionButton>
+                  <Link href="/demo">
+                    <MotionButton
+                      size="lg"
+                      className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl px-8 py-6 text-lg shadow-lg hover:shadow-indigo-200 transition-all"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      Start Your First Debate
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </MotionButton>
+                  </Link>
+                  <Link href="/demo">
+                    <MotionButton
+                      variant="outline"
+                      size="lg"
+                      className="border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 rounded-xl px-8 py-6 text-lg"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      See Demo
+                    </MotionButton>
+                  </Link>
                 </motion.div>
 
                 <motion.div
