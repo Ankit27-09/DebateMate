@@ -148,6 +148,27 @@ export default function NewDebatePage() {
     }, 1500);
   };
 
+  const handleEndDebate = () => {
+    // Implement logic to end the debate here
+    console.log("End Debate clicked"); // Placeholder
+    // Reset state variables
+    setMessages([ // Reset messages to the initial welcome message
+      {
+        id: "1",
+        content:
+          "Welcome to DebateMate! I'm Professor Logic, your AI debate partner. What topic would you like to debate today?",
+        sender: "ai",
+        timestamp: new Date(),
+      },
+    ]);
+    setTopic(null); // Clear the topic
+    setDebateStarted(false); // Reset debate started flag
+    setInputValue(""); // Clear the input value
+    // You might also want to stop any ongoing speech synthesis or recognition here
+    if (speechSynthesisRef.current) {
+      speechSynthesisRef.current.cancel();
+    }
+  };
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -219,6 +240,34 @@ export default function NewDebatePage() {
     }
   };
 
+  const handleSaveTranscript = () => {
+    // Implement logic to save the transcript here
+    const transcriptContent = messages
+      .map((message) => {
+        const sender = message.sender === "user" ? "You" : "Professor Logic (AI)";
+        const timestamp = message.timestamp.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+        return `${sender} [${timestamp}]: ${message.content}`;
+      })
+      .join("\n");
+
+    const blob = new Blob([transcriptContent], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "debate_transcript.txt";
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+
   // Simple AI response generator
   const generateAIResponse = (
     userMessage: string,
@@ -282,7 +331,9 @@ export default function NewDebatePage() {
               <DropdownMenuItem>Change AI Persona</DropdownMenuItem>
               <DropdownMenuItem>Adjust Difficulty</DropdownMenuItem>
               <DropdownMenuItem>Voice Settings</DropdownMenuItem>
-              <DropdownMenuItem>End Debate</DropdownMenuItem>
+              <DropdownMenuItem onSelect={handleEndDebate}>
+                End Debate
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           <DropdownMenu>
@@ -298,7 +349,9 @@ export default function NewDebatePage() {
                 Save Transcript
               </DropdownMenuItem>
               <DropdownMenuItem>Share Debate</DropdownMenuItem>
-              <DropdownMenuItem>Report Issue</DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => console.log("Report Issue clicked")}> {/* Added console log for demonstration */}
+ Report Issue
+ </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

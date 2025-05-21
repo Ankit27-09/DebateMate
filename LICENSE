@@ -1,3 +1,5 @@
+export NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="pk_test_a25vd2luZy1jaGltcC04Mi5jbGVyay5hY2NvdW50cy5kZXYk"
+   npm run build
 MIT License
 
 Copyright (c) 2025 DebateMate
