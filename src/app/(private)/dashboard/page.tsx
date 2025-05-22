@@ -22,9 +22,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
+import { useRouter } from 'next/navigation';
 
 export default function DashboardPage() {
   //   const { data: session } = useSession()
+  const router = useRouter();
 
   const container = {
     hidden: { opacity: 0 },
@@ -40,6 +42,10 @@ export default function DashboardPage() {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0 },
   };
+
+  function newDebate(){
+    router.push('/new-debate');
+  }
 
   return (
     <motion.div
@@ -61,7 +67,7 @@ export default function DashboardPage() {
                 today.
               </p>
             </div>
-            <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+            <Button onClick={(e)=>newDebate()} className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
               Start New Debate
             </Button>
           </CardContent>
