@@ -43,7 +43,7 @@ DebateMate/
 ## 🛠️ Installation
 1. Clone the Repository
 - git clone https://github.com/Ankit27-09/DebateMate.git
-- cd debatemates
+- cd DebateMate
 
 2. FrontEnd(Next.Ts)
   - npm install
