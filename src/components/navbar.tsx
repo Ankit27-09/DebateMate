@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useMobile } from "@/hooks/use-mobile";
+import { ModeToggle } from "@/components/mode-toggle";
 import {
   SignInButton,
   SignUpButton,
@@ -110,6 +111,7 @@ export default function Navbar() {
                 })}
               </nav>
               <div className="flex items-center space-x-4">
+                <ModeToggle />
                 <SignedOut>
                   {/* Sign In / Sign Up buttons for signed-out users */}
                   {!isMobile && (
@@ -150,8 +152,6 @@ export default function Navbar() {
                     <Link href="/dashboard">Dashboard</Link>
                   </Button>
                 </SignedIn>
-
-                
               </div>
             </>
           )}
@@ -205,6 +205,7 @@ export default function Navbar() {
                   </motion.div>
                 ))}
                 <div className="flex items-center space-x-4">
+                  <ModeToggle />
                   <SignedOut>
                     {/* Sign In / Sign Up buttons for signed-out users */}
                     {!isMobile && (

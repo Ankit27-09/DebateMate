@@ -111,13 +111,13 @@ export default function Home() {
           className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden"
         >
           {/* Background gradient */}
-          <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-indigo-50 z-0" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background to-secondary z-0" />
 
           {/* Animated background shapes */}
           <div className="absolute inset-0 overflow-hidden z-0">
-            <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-indigo-100 opacity-60" />
-            <div className="absolute top-1/3 -left-20 w-72 h-72 rounded-full bg-teal-100 opacity-60" />
-            <div className="absolute -bottom-40 right-1/4 w-80 h-80 rounded-full bg-indigo-200 opacity-40" />
+            <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-primary/10 opacity-60" />
+            <div className="absolute top-1/3 -left-20 w-72 h-72 rounded-full bg-accent/10 opacity-60" />
+            <div className="absolute -bottom-40 right-1/4 w-80 h-80 rounded-full bg-primary/20 opacity-40" />
           </div>
 
           <div className="container mx-auto px-4 z-10">
@@ -267,7 +267,7 @@ export default function Home() {
         <FeaturesPage />
 
         {/* How It Works Section */}
-        <section className="py-24 bg-gray-50">
+        <section className="py-24 bg-background dark:bg-card">
           <div className="container mx-auto px-4">
             <motion.div
               className="text-center max-w-3xl mx-auto mb-16"
@@ -279,10 +279,10 @@ export default function Home() {
               <div className="inline-block px-4 py-2 bg-indigo-100 rounded-full text-indigo-700 font-medium text-sm mb-4">
                 Simple Process
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
                 How DebateMate Works
               </h2>
-              <p className="text-xl text-gray-600">
+              <p className="text-xl text-muted-foreground">
                 Our platform makes it easy to practice, learn, and improve your
                 debate skills
               </p>
@@ -311,19 +311,19 @@ export default function Home() {
               ].map((item, index) => (
                 <motion.div
                   key={index}
-                  className="relative bg-white rounded-2xl p-8 shadow-lg"
+                  className="relative bg-card rounded-2xl p-8 shadow-lg"
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true, amount: 0.3 }}
                 >
-                  <div className="absolute -top-6 left-8 w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold">
+                  <div className="absolute -top-6 left-8 w-12 h-12 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold">
                     {item.step}
                   </div>
-                  <h3 className="text-2xl font-bold mt-6 mb-4 text-gray-900">
+                  <h3 className="text-2xl font-bold mt-6 mb-4 text-card-foreground">
                     {item.title}
                   </h3>
-                  <p className="text-gray-600">{item.description}</p>
+                  <p className="text-muted-foreground">{item.description}</p>
                 </motion.div>
               ))}
             </div>

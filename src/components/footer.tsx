@@ -6,18 +6,18 @@ import { ModeToggle } from "./mode-toggle";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white pt-16 pb-8">
+    <footer className="bg-card text-card-foreground pt-16 pb-8">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
           {/* Company Info */}
           <div className="lg:col-span-2 space-y-2">
             <div className="flex items-center mb-4">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-800 flex items-center justify-center text-white font-bold text-xl mr-2">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-primary to-primary/80 flex items-center justify-center text-primary-foreground font-bold text-xl mr-2">
                 D
               </div>
               <span className="text-xl font-bold">DebateMate</span>
             </div>
-            <p className="text-gray-400 mb-6 max-w-md">
+            <p className="text-muted-foreground mb-6 max-w-md">
               DebateMate is the leading AI-powered platform for debate training,
               helping users improve their critical thinking and persuasion
               skills.
