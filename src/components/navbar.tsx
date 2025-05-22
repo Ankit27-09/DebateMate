@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useMobile } from "@/hooks/use-mobile";
+import { useTheme } from "next-themes";
+import { Moon, Sun } from "lucide-react";
 import {
   SignInButton,
   SignUpButton,
@@ -26,6 +28,19 @@ export default function Navbar() {
   useEffect(() => {
     setIsClient(true); // Ensure component runs only on the client
   }, []);
+  useEffect(() => {
+  const handleScroll = () => {
+    setMobileMenuOpen(false);
+  };
+
+  if (mobileMenuOpen) {
+    window.addEventListener("scroll", handleScroll);
+  }
+
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+}, [mobileMenuOpen]);
 
   useEffect(() => {
     if (isClient) {
@@ -53,6 +68,8 @@ export default function Navbar() {
     { name: "Contact", href: "/contact" },
     { name: "Roadmap", href: "/roadmap" },
   ];
+
+  const {theme, setTheme} = useTheme()
 
   return (
     <header
@@ -111,8 +128,17 @@ export default function Navbar() {
               </nav>
               <div className="flex items-center space-x-4">
                 <SignedOut>
+
+                  <motion.div initial={{ opacity: 0, x: 10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.6, duration: 0.5 }}>
+                    <Button onClick={e=>setTheme(prev=>prev=='light'?'dark':'light')} className={`rounded-full ${theme=='light' ? 'bg-black' : 'bg-white'}`}>
+                      {theme=='light' ? <Moon></Moon> : <Sun></Sun>}
+                    </Button>
+                  </motion.div>
                   {/* Sign In / Sign Up buttons for signed-out users */}
                   {!isMobile && (
+                    
                     <motion.div
                       initial={{ opacity: 0, x: 10 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -157,6 +183,14 @@ export default function Navbar() {
           )}
           {/* Mobile Menu Button */}
                 {isMobile && (
+                  <div className="flex gap-2">
+                  <motion.div initial={{ opacity: 0, x: 10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.6, duration: 0.5 }}>
+                    <Button onClick={e=>setTheme(prev=>prev=='light'?'dark':'light')} className={`rounded-full ${theme=='light' ? 'bg-black' : 'bg-white'}`}>
+                      {theme=='light' ? <Moon></Moon> : <Sun></Sun>}
+                    </Button>
+                  </motion.div>
                   <motion.button
                     className="md:hidden text-accent-foreground"
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -170,6 +204,7 @@ export default function Navbar() {
                       <Menu className="h-6 w-6" />
                     )}
                   </motion.button>
+                  </div>
                 )}
 
           {/* CTA Buttons */}
@@ -180,7 +215,8 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileMenuOpen && isMobile && (
           <motion.div
-            className="md:hidden absolute top-full left-0 right-0 bg-background shadow-lg"
+            className="md:hidden absolute top-full left-0 right-0 bg-white/30 dark:bg-zinc-900/60 backdrop-blur-md shadow-lg z-50"
+
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
@@ -188,6 +224,7 @@ export default function Navbar() {
           >
             <div className="container mx-auto px-4 py-4">
               <nav className="flex flex-col space-y-4">
+                
                 {navLinks.map((link, index) => (
                   <motion.div
                     key={link.name}
@@ -206,6 +243,7 @@ export default function Navbar() {
                 ))}
                 <div className="flex items-center space-x-4">
                   <SignedOut>
+                    
                     {/* Sign In / Sign Up buttons for signed-out users */}
                     {!isMobile && (
                       <motion.div
