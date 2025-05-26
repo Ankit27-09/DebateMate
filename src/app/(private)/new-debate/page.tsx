@@ -2,31 +2,34 @@
 
 import type React from "react";
 
-import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
-  Send,
+  ArrowLeft,
+  Clock,
+  Download,
   Mic,
   MicOff,
+  MoreVertical,
+  Send,
+  Settings,
   Volume2,
   VolumeX,
-  Settings,
-  ArrowLeft,
-  MoreVertical,
-  Download,
 } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import CountdownTimer from "@/components/ui/CountdownTimer";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import TimerSettings, { TimerConfig } from "@/components/ui/TimerSettings";
 
 type Message = {
   id: string;
@@ -51,6 +54,21 @@ export default function NewDebatePage() {
   const [topic, setTopic] = useState<string | null>(null);
   const [debateStarted, setDebateStarted] = useState(false);
 
+  // Timer related states
+  const [timerSettingsOpen, setTimerSettingsOpen] = useState(false);
+  const [timerConfig, setTimerConfig] = useState<TimerConfig>({
+    enabled: false,
+    rounds: [
+      { name: "Opening Statement", durationSeconds: 120 },
+      { name: "Rebuttal", durationSeconds: 180 },
+      { name: "Closing Statement", durationSeconds: 60 },
+    ],
+    soundAlerts: true,
+    autoSubmit: true,
+  });
+  const [timerActive, setTimerActive] = useState(false);
+  const [currentRoundIndex, setCurrentRoundIndex] = useState(0);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const speechSynthesisRef = useRef<SpeechSynthesis | null>(null);
   const speechRecognitionRef = useRef<any>(null);
@@ -61,7 +79,6 @@ export default function NewDebatePage() {
       speechSynthesisRef.current = window.speechSynthesis;
 
       // Check if SpeechRecognition is available
-
       const SpeechRecognition =
         (window as any).SpeechRecognition ||
         (window as any).webkitSpeechRecognition;
@@ -145,6 +162,13 @@ export default function NewDebatePage() {
       };
       setMessages((prev) => [...prev, newAIMessage]);
       speakText(newAIMessage.content);
+
+      // If timer is active and we're in user's turn, move to next round (AI's turn)
+      if (timerActive && timerConfig.enabled) {
+        setCurrentRoundIndex((prev) =>
+          prev < timerConfig.rounds.length - 1 ? prev + 1 : prev
+        );
+      }
     }, 1500);
   };
 
@@ -219,6 +243,60 @@ export default function NewDebatePage() {
     }
   };
 
+  const handleTimeExpired = () => {
+    if (timerConfig.autoSubmit && inputValue.trim()) {
+      handleSendMessage();
+    } else {
+      // Add a system message that time expired
+      const timeExpiredMessage: Message = {
+        id: Date.now().toString(),
+        content: "⏱️ Time expired for this round. Moving to the next round.",
+        sender: "ai",
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, timeExpiredMessage]);
+    }
+  };
+
+  const startTimedDebate = () => {
+    if (!debateStarted) {
+      alert("Please start a debate by setting a topic first.");
+      return;
+    }
+
+    setTimerActive(true);
+    setCurrentRoundIndex(0);
+
+    // Add a system message about the timed debate
+    const timedDebateMessage: Message = {
+      id: Date.now().toString(),
+      content: `🏆 Timed Debate Mode activated! We'll follow a structured format with ${
+        timerConfig.rounds.length
+      } rounds. Your first round is "${
+        timerConfig.rounds[0].name
+      }" with ${Math.floor(
+        timerConfig.rounds[0].durationSeconds / 60
+      )} minutes ${timerConfig.rounds[0].durationSeconds % 60} seconds.`,
+      sender: "ai",
+      timestamp: new Date(),
+    };
+    setMessages((prev) => [...prev, timedDebateMessage]);
+  };
+
+  const dismissTimer = () => {
+    setTimerActive(false);
+
+    // Add a system message that timed mode was ended
+    const timerEndedMessage: Message = {
+      id: Date.now().toString(),
+      content:
+        "⏱️ Timed Debate Mode has been deactivated. You can continue debating without time constraints.",
+      sender: "ai",
+      timestamp: new Date(),
+    };
+    setMessages((prev) => [...prev, timerEndedMessage]);
+  };
+
   // Simple AI response generator
   const generateAIResponse = (
     userMessage: string,
@@ -242,6 +320,32 @@ export default function NewDebatePage() {
 
   return (
     <div className="h-full flex flex-col">
+      {/* Timer Settings Dialog */}
+      <TimerSettings
+        open={timerSettingsOpen}
+        onOpenChange={setTimerSettingsOpen}
+        config={timerConfig}
+        onSave={(config: TimerConfig) => {
+          setTimerConfig(config);
+          if (config.enabled && debateStarted) {
+            startTimedDebate();
+          }
+        }}
+      />
+
+      {/* Active Timer */}
+      {timerActive && timerConfig.enabled && (
+        <CountdownTimer
+          rounds={timerConfig.rounds}
+          currentRoundIndex={currentRoundIndex}
+          setCurrentRoundIndex={setCurrentRoundIndex}
+          soundAlerts={timerConfig.soundAlerts}
+          autoSubmit={timerConfig.autoSubmit}
+          onTimeExpired={handleTimeExpired}
+          onDismiss={dismissTimer}
+        />
+      )}
+
       {/* Header */}
       <header className="sticky top-0 z-10 flex h-14 items-center gap-4 border bg-accent px-4 sm:px-6 rounded-md">
         <Button variant="ghost" size="icon" asChild>
@@ -271,6 +375,12 @@ export default function NewDebatePage() {
               Topic: {topic}
             </Badge>
           )}
+          {timerActive && timerConfig.enabled && (
+            <Badge variant="secondary" className="hidden sm:inline-flex">
+              <Clock className="h-3 w-3 mr-1" />
+              Timed Mode
+            </Badge>
+          )}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon">
@@ -279,6 +389,10 @@ export default function NewDebatePage() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={() => setTimerSettingsOpen(true)}>
+                <Clock className="mr-2 h-4 w-4" />
+                {timerActive ? "Timer Settings" : "Set Timer"}
+              </DropdownMenuItem>
               <DropdownMenuItem>Change AI Persona</DropdownMenuItem>
               <DropdownMenuItem>Adjust Difficulty</DropdownMenuItem>
               <DropdownMenuItem>Voice Settings</DropdownMenuItem>
@@ -384,13 +498,14 @@ export default function NewDebatePage() {
               <Send className="h-5 w-5" />
             </Button>
           </div>
-          {/* <div className="mt-2 text-center text-xs text-muted-foreground">
-            <p>
-              {isRecording
-                ? "Listening... Click the microphone icon again to stop."
-                : "Click the microphone icon to use voice input."}
-            </p>
-          </div> */}
+          {timerActive && timerConfig.enabled && (
+            <div className="mt-2 text-center text-xs text-muted-foreground">
+              <p>
+                Current round:{" "}
+                {timerConfig.rounds[currentRoundIndex]?.name || "Debate"}
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>
