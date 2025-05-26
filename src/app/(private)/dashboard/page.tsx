@@ -3,14 +3,16 @@
 import { motion } from "framer-motion";
 import {
   ArrowUpRight,
+  Award,
+  BookOpen,
   Clock,
   TrendingUp,
   Video,
-  BookOpen,
-  Award,
 } from "lucide-react";
 import Link from "next/link";
 
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -19,9 +21,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { Badge } from "@/components/ui/badge";
 
 export default function DashboardPage() {
   //   const { data: session } = useSession()
@@ -61,8 +61,9 @@ export default function DashboardPage() {
                 today.
               </p>
             </div>
+
             <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-              Start New Debate
+              <Link href="/new-debate">Start New Debate</Link>
             </Button>
           </CardContent>
         </Card>
