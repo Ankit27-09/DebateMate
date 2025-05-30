@@ -17,34 +17,18 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 export default function Navbar() {
-  const [isClient, setIsClient] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isMobile = useMobile();
   const pathname = usePathname();
 
   useEffect(() => {
-    setIsClient(true); // Ensure component runs only on the client
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  useEffect(() => {
-    if (isClient) {
-      const handleScroll = () => {
-        if (window.scrollY > 10) {
-          setIsScrolled(true);
-        } else {
-          setIsScrolled(false);
-        }
-      };
-
-      window.addEventListener("scroll", handleScroll);
-      return () => window.removeEventListener("scroll", handleScroll);
-    }
-  }, [isClient]);
-
-  if (!isClient) {
-    return null;
-  }
 
   const navLinks = [
     { name: "Features", href: "/features" },
@@ -97,11 +81,12 @@ export default function Navbar() {
                     >
                       <Link
                         href={link.href}
-                        className={`font-medium transition-colors ${
+                        className={cn(
+                          `navbar-feature-btn font-medium transition-colors`,
                           isActive
                             ? "text-indigo-600"
                             : "text-accent-foreground hover:text-indigo-600"
-                        }`}
+                        )}
                       >
                         {link.name}
                       </Link>
