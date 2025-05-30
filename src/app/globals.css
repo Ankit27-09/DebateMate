@@ -132,6 +132,27 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+@keyframes button-pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.92);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.navbar-feature-btn {
+  font-size: 0.85rem;
+  padding: 0.25rem 0.75rem;
+  min-width: 2.25rem;
+  min-height: 2rem;
+  border-radius: 0.5rem;
+  animation: button-pop 0.3s;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
