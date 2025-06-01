@@ -16,9 +16,9 @@ import { useMobile } from "@/hooks/use-mobile";
 import { useRouter } from "next/navigation";
 import Footer from "@/components/footer";
 import LogoMarquee from "@/components/logo-marquee";
-import FeaturesPage from "./features/page";
-import TestimonialsPage from "./testimonials/page";
-import PricingPage from "./pricing/page";
+import FeaturesSection from "@/components/landing/features-section";
+import TestimonialsSection from "@/components/landing/testimonials-section";
+import PricingSection from "@/components/landing/pricing-section";
 import Navbar from "@/components/navbar";
 
 function AvatarModel() {
@@ -279,7 +279,7 @@ export default function Home() {
 				<LogoMarquee />
 
 				{/* Features Section */}
-				<FeaturesPage />
+				<FeaturesSection />
 
 				{/* How It Works Section */}
 				<section className="py-24">
@@ -389,10 +389,10 @@ export default function Home() {
 				</section>
 
 				{/* Testimonials Section */}
-				<TestimonialsPage />
+				<TestimonialsSection />
 
 				{/* Pricing Section */}
-				<PricingPage />
+				<PricingSection />
 
 				{/* CTA Section */}
 				<section className="py-24 bg-gradient-to-r from-indigo-600 to-indigo-800 text-white">
