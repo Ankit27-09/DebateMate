@@ -18,6 +18,28 @@ import { cn } from "@/lib/utils";
 import { ModeToggle } from "./mode-toggle";
 
 export default function Navbar() {
+
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isMobile = useMobile();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const navLinks = [
+    { name: "Features", href: "/features" },
+    { name: "Pricing", href: "/pricing" },
+    { name: "Testimonials", href: "/testimonials" },
+    { name: "Contact", href: "/contact" },
+    { name: "Roadmap", href: "/roadmap" },
+  ];
+
 	const [isClient, setIsClient] = useState(false);
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -55,6 +77,7 @@ export default function Navbar() {
 		{ name: "Roadmap", href: "/roadmap" },
 	];
 
+
 	return (
 		<header
 			className={cn(
@@ -82,6 +105,55 @@ export default function Navbar() {
 							</span>
 						</motion.div>
 					</Link>
+
+
+          {/* Desktop Navigation */}
+          {!isMobile && (
+            <>
+              <nav className="hidden md:flex items-center space-x-8">
+                {navLinks.map((link, index) => {
+                  const isActive = pathname === link.href;
+                  return (
+                    <motion.div
+                      key={link.name}
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1, duration: 0.5 }}
+                    >
+                      <Link
+                        href={link.href}
+                        className={cn(
+                          `navbar-feature-btn font-medium transition-colors`,
+                          isActive
+                            ? "text-indigo-600"
+                            : "text-accent-foreground hover:text-indigo-600"
+                        )}
+                      >
+                        {link.name}
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </nav>
+              <div className="flex items-center space-x-4">
+                <SignedOut>
+                  {/* Sign In / Sign Up buttons for signed-out users */}
+                  {!isMobile && (
+                    <motion.div
+                      initial={{ opacity: 0, x: 10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.6, duration: 0.5 }}
+                    >
+                      <SignInButton>
+                        <Button
+                          variant="outline"
+                          className="border-indigo-600 text-indigo-600 hover:bg-indigo-50"
+                        >
+                          Log In
+                        </Button>
+                      </SignInButton>
+                    </motion.div>
+                  )}
 
 					{/* Desktop Navigation */}
 					{!isMobile && (
@@ -135,6 +207,7 @@ export default function Navbar() {
 											</SignInButton>
 										</motion.div>
 									)}
+
 
 									<motion.div
 										initial={{ opacity: 0, x: 10 }}
