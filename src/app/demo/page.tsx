@@ -50,10 +50,18 @@ export default function NewDebatePage() {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [topic, setTopic] = useState<string | null>(null);
   const [debateStarted, setDebateStarted] = useState(false);
+  const [activeModal, setActiveModal] = useState<"persona" | "difficulty" | "voice" | "exit" | null>(null)
+  //states for setting persona, difficulty, and voice
+  const [selectedPersona, setSelectedPersona] = useState<string | null>(null)
+  const [selectedDifficulty, setSelectedDifficulty] = useState<string | null>(null)
+  const [voiceEnabled, setVoiceEnabled] = useState<boolean | null>(true)
+  const [modalType, setModalType] = useState<"share" | "report" | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const speechSynthesisRef = useRef<SpeechSynthesis | null>(null);
   const speechRecognitionRef = useRef<any>(null);
+
+  console.log(selectedPersona,selectedDifficulty,)
 
   // Initialize speech synthesis and recognition
   useEffect(() => {
@@ -240,6 +248,17 @@ export default function NewDebatePage() {
     return responses[Math.floor(Math.random() * responses.length)];
   };
 
+  const downloadTranscript = () => {
+    const content = messages.map((m) => `[${m.sender.toUpperCase()}]: ${m.content}`).join("\n");
+    const blob = new Blob([content], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${topic}_transcript.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="h-full flex flex-col w-full">
       {/* Header */}
@@ -279,12 +298,113 @@ export default function NewDebatePage() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem>Change AI Persona</DropdownMenuItem>
-              <DropdownMenuItem>Adjust Difficulty</DropdownMenuItem>
-              <DropdownMenuItem>Voice Settings</DropdownMenuItem>
-              <DropdownMenuItem>End Debate</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setActiveModal("persona")} className="hover:cursor-pointer">Change AI Persona</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setActiveModal("difficulty")} className="hover:cursor-pointer">Adjust Difficulty</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setActiveModal("voice")} className="hover:cursor-pointer">Voice Settings</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setActiveModal("exit")} className="hover:cursor-pointer">End Debate</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          {/*Dialog box*/}
+          {activeModal && (
+            <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center">
+              <div className="bg-white rounded-xl p-6 w-[90%] max-w-md shadow-xl z-50">
+                <h2 className="text-xl font-bold mb-4">
+                  {activeModal === "persona" && "Select AI Persona"}
+                  {activeModal === "difficulty" && "Adjust Difficulty"}
+                  {activeModal === "voice" && "Voice Settings"}
+                  {activeModal === "exit" && "Exit Chat"}
+                </h2>
+
+                {/* Persona Selection */}
+                {activeModal === "persona" && (
+                  <div className="flex flex-col gap-2">
+                    {["Friendly", "Formal", "Sarcastic"].map(p => (
+                      <button
+                        key={p}
+                        className={`p-2 rounded ${selectedPersona === p ? "bg-black text-white" : "border"} hover:cursor-pointer`}
+                        onClick={() => setSelectedPersona(p)}
+                      >
+                        {p}
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                {/* Difficulty */}
+                {activeModal === "difficulty" && (
+                  <div className="flex flex-col gap-2">
+                    {["Easy", "Medium", "Hard"].map(level => (
+                      <button
+                        key={level}
+                        className={`p-2 rounded ${selectedDifficulty === level ? "bg-black text-white" : "border"} hover:cursor-pointer`}
+                        onClick={() => setSelectedDifficulty(level)}
+                      >
+                        {level}
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                {/* Voice */}
+                {activeModal === "voice" && (
+                  <div className="flex flex-col gap-2">
+                    <button
+                      className={`p-2 rounded ${voiceEnabled === true ? "bg-green-600 text-white" : "border"} hover:cursor-pointer`}
+                      onClick={() => setVoiceEnabled(true)}
+                    >
+                      Enable Voice
+                    </button>
+                    <button
+                      className={`p-2 rounded ${voiceEnabled === false ? "bg-red-600 text-white" : "border"} hover:cursor-pointer`}
+                      onClick={() => setVoiceEnabled(false)}
+                    >
+                      Disable Voice
+                    </button>
+                  </div>
+                )}
+
+                {/* Exit */}
+                {activeModal === "exit" && (
+                  <div className="flex flex-col gap-4">
+                    <p>Do you want to save the chat before exiting?</p>
+                    <div className="flex justify-end gap-2">
+                      <button onClick={() => setActiveModal(null)} className="border px-4 py-2 rounded hover:cursor-pointer">Cancel</button>
+                      <Link href="/"><button
+                        onClick={() => {
+                          // Save logic here
+                          setActiveModal(null);
+                        }}
+                        className="bg-blue-600 text-white px-4 py-2 rounded hover:cursor-pointer"
+                      >
+                        Save & Exit
+                      </button></Link>
+                       <Link href="/"><button
+                        onClick={() => {
+                          setActiveModal(null);
+                        }}
+                        className="bg-red-600 text-white px-4 py-2 rounded hover:cursor-pointer"
+                      >
+                        Exit Without Saving
+                      </button></Link>
+                    </div>
+                  </div>
+                )}
+
+                {/* OK Button */}
+                {activeModal !== "exit" && (
+                  <div className="mt-4 flex justify-center">
+                    <button
+                      onClick={() => setActiveModal(null)}
+                      className="px-3 py-1 bg-gray-800 text-white rounded-md hover:cursor-pointer"
+                    >
+                      OK
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon">
@@ -293,14 +413,78 @@ export default function NewDebatePage() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={downloadTranscript} className="hover:cursor-pointer">
                 <Download className="mr-2 h-4 w-4" />
                 Save Transcript
               </DropdownMenuItem>
-              <DropdownMenuItem>Share Debate</DropdownMenuItem>
-              <DropdownMenuItem>Report Issue</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setModalType("share")} className="hover:cursor-pointer">Share Debate</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setModalType("report")} className="hover:cursor-pointer">Report Issue</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          {/* model menu for more options */}
+          {modalType && (
+            <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center" >
+              <div className="bg-white rounded-2xl p-6 w-[90%] max-w-md shadow-2xl relative ">
+                
+                {/* Header */}
+                <h2 className="text-2xl font-bold mb-5 text-center">
+                  {modalType === "share" ? "Share This Debate" : "Report an Issue"}
+                </h2>
+
+                {/* Share Content */}
+                {modalType === "share" && (
+                  <div className="flex flex-col gap-4">
+                    <input
+                      type="text"
+                      readOnly
+                      value="https://yourapp.com/debate/123"
+                      className="border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <button
+                      onClick={() => {
+                        navigator.clipboard
+                          .writeText("https://yourapp.com/debate/123")
+                          .catch(() => alert("Failed to copy link."));
+                      }}
+                      className="bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg hover:cursor-pointer"
+                    >
+                      Copy Link
+                    </button>
+                  </div>
+                )}
+                {/* Report Content */}
+                {modalType === "report" && (
+                  <div className="flex flex-col gap-4">
+                    <textarea
+                      rows={4}
+                      className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 hover:cursor-pointer"
+                      placeholder="Describe the issue..."
+                    ></textarea>
+                    <button
+                      onClick={() => {
+                        // Submit to backend here
+                        setModalType(null);
+                      }}
+                      className="bg-red-600 hover:bg-red-700 transition text-white py-2 rounded-lg hover:cursor-pointer"
+                    >
+                      Submit Report
+                    </button>
+                  </div>
+                )}
+
+                {/* Bottom Button (OK/Close) */}
+                <div className="mt-6 flex justify-center">
+                  <button
+                    onClick={() => setModalType(null)}
+                    className="px-6 py-2 border border-gray-300 bg-black text-white rounded-lg hover:bg-gray-700 cursor-pointer transition"
+                  >
+                    OK
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
         </div>
       </header>
 
@@ -371,10 +555,10 @@ export default function NewDebatePage() {
             <Button
               variant="outline"
               size="icon"
-              className={isSpeaking ? "bg-blue-100 text-blue-500" : ""}
+              className={voiceEnabled && isSpeaking ? "bg-blue-100 text-blue-500" : ""}
               onClick={toggleSpeaking}
             >
-              {isSpeaking ? (
+              {voiceEnabled && isSpeaking ? (
                 <VolumeX className="h-5 w-5" />
               ) : (
                 <Volume2 className="h-5 w-5" />
