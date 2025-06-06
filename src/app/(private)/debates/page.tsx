@@ -14,6 +14,7 @@ import {
   Download,
   MoreHorizontal,
 } from "lucide-react"
+import Link from "next/link"
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -142,9 +143,11 @@ export default function DebatesPage() {
                 <DropdownMenuItem>Healthcare</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Button size="sm" className="h-9">
-              <Plus className="mr-2 h-4 w-4" />
-              New Debate
+            <Button
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+              asChild
+            >
+              <Link href="/debate/options">New Debate</Link>
             </Button>
           </div>
         </motion.div>

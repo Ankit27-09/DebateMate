@@ -55,24 +55,26 @@ export default function DashboardPage() {
       animate="show"
     >
       {/* Welcome section */}
-      <motion.div variants={item}>
-        <Card>
-          <CardContent className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
-            <div className="space-y-1">
-              <h2 className="text-2xl font-bold tracking-tight">
-                Welcome back, <span className="font-medium">John Doe</span>!
-              </h2>
-              <p className="text-muted-foreground">
-                Here&apos;s what&apos;s happening with your debate training
-                today.
-              </p>
-            </div>
-            <Button onClick={(e)=>newDebate()} className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-              Start New Debate
-            </Button>
-          </CardContent>
-        </Card>
-      </motion.div>
+     <motion.div variants={item}>
+  <Card>
+    <CardContent className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
+      <div className="space-y-1">
+        <h2 className="text-2xl font-bold tracking-tight">
+          Welcome back, <span className="font-medium">John Doe</span>!
+        </h2>
+        <p className="text-muted-foreground">
+          Here&apos;s what&apos;s happening with your debate training today.
+        </p>
+      </div>
+      <Button
+        onClick={newDebate}
+        className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+      >
+        Start New Debate
+      </Button>
+    </CardContent>
+  </Card>
+</motion.div>
 
       {/* Stats overview */}
       <motion.div
