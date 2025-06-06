@@ -19,6 +19,7 @@ import { useEffect, useRef, useState } from "react";
 import FeaturesPage from "./features/page";
 import PricingPage from "./pricing/page";
 import TestimonialsPage from "./testimonials/page";
+import Link from "next/link";
 
 function AvatarModel() {
   return (
@@ -160,15 +161,13 @@ export default function Home() {
                   className="flex flex-col sm:flex-row gap-4"
                   variants={fadeInUp}
                 >
-                  <MotionButton
+                  <Button
                     size="lg"
-                    className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl px-8 py-6 text-lg shadow-lg hover:shadow-indigo-200 transition-all"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.98 }}
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                    asChild
                   >
-                    Start Your First Debate
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </MotionButton>
+                    <Link href="/debate/options">Start Your First Debate</Link>
+                  </Button>
 
                   <MotionButton
                     variant="outline"

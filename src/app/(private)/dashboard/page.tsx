@@ -61,8 +61,11 @@ export default function DashboardPage() {
                 today.
               </p>
             </div>
-            <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-              Start New Debate
+            <Button 
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+              asChild
+            >
+              <Link href="/debate/options">Start New Debate</Link>
             </Button>
           </CardContent>
         </Card>
