@@ -22,9 +22,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
+import { useRouter } from 'next/navigation';
 
 export default function DashboardPage() {
   //   const { data: session } = useSession()
+  const router = useRouter();
 
   const container = {
     hidden: { opacity: 0 },
@@ -41,6 +43,10 @@ export default function DashboardPage() {
     show: { opacity: 1, y: 0 },
   };
 
+  function newDebate(){
+    router.push('/new-debate');
+  }
+
   return (
     <motion.div
       className="grid gap-6"
@@ -49,27 +55,26 @@ export default function DashboardPage() {
       animate="show"
     >
       {/* Welcome section */}
-      <motion.div variants={item}>
-        <Card>
-          <CardContent className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
-            <div className="space-y-1">
-              <h2 className="text-2xl font-bold tracking-tight">
-                Welcome back, <span className="font-medium">John Doe</span>!
-              </h2>
-              <p className="text-muted-foreground">
-                Here&apos;s what&apos;s happening with your debate training
-                today.
-              </p>
-            </div>
-            <Button 
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-              asChild
-            >
-              <Link href="/debate/options">Start New Debate</Link>
-            </Button>
-          </CardContent>
-        </Card>
-      </motion.div>
+     <motion.div variants={item}>
+  <Card>
+    <CardContent className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
+      <div className="space-y-1">
+        <h2 className="text-2xl font-bold tracking-tight">
+          Welcome back, <span className="font-medium">John Doe</span>!
+        </h2>
+        <p className="text-muted-foreground">
+          Here&apos;s what&apos;s happening with your debate training today.
+        </p>
+      </div>
+      <Button
+        onClick={newDebate}
+        className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+      >
+        Start New Debate
+      </Button>
+    </CardContent>
+  </Card>
+</motion.div>
 
       {/* Stats overview */}
       <motion.div
