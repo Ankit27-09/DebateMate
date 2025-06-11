@@ -39,7 +39,7 @@ export default function Home() {
 	const [isLoaded, setIsLoaded] = useState(false);
 	const { scrollYProgress } = useScroll();
 
-  const router = useRouter();
+	const router = useRouter();
 
 	const MotionButton = motion(Button);
 
@@ -109,21 +109,21 @@ export default function Home() {
 		<>
 			<Navbar />
 
-      <main className="overflow-hidden">
-        {/* Hero Section with Gradient Background */}
-        <section
-          ref={heroRef}
-          className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden"
-        >
-          {/* Background gradient */}
-          <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-indigo-50 z-0" />
+			<main className="overflow-hidden">
+				{/* Hero Section with Gradient Background */}
+				<section
+					ref={heroRef}
+					className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden"
+				>
+					{/* Background gradient */}
+					{/* <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-indigo-50 z-0" /> */}
 
-          {/* Animated background shapes */}
-          <div className="absolute inset-0 overflow-hidden z-0">
-            <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-indigo-100 opacity-60" />
-            <div className="absolute top-1/3 -left-20 w-72 h-72 rounded-full bg-teal-100 opacity-60" />
-            <div className="absolute -bottom-40 right-1/4 w-80 h-80 rounded-full bg-indigo-200 opacity-40" />
-          </div>
+					{/* Animated background shapes */}
+					<div className="absolute inset-0 overflow-hidden z-0">
+						<div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-indigo-100 opacity-60" />
+						<div className="absolute top-1/3 -left-20 w-72 h-72 rounded-full bg-teal-100 opacity-60" />
+						<div className="absolute -bottom-40 right-1/4 w-80 h-80 rounded-full bg-indigo-200 opacity-40" />
+					</div>
 
 					<div className="container mx-auto px-4 z-10">
 						<motion.div
@@ -281,69 +281,69 @@ export default function Home() {
 				{/* Features Section */}
 				<FeaturesSection />
 
-        {/* How It Works Section */}
-        <section className="py-24 bg-gray-50">
-          <div className="container mx-auto px-4">
-            <motion.div
-              className="text-center max-w-3xl mx-auto mb-16"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true, amount: 0.3 }}
-            >
-              <div className="inline-block px-4 py-2 bg-indigo-100 rounded-full text-indigo-700 font-medium text-sm mb-4">
-                Simple Process
-              </div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-                How DebateMate Works
-              </h2>
-              <p className="text-xl text-gray-600">
-                Our platform makes it easy to practice, learn, and improve your
-                debate skills
-              </p>
-            </motion.div>
+				{/* How It Works Section */}
+				<section className="py-24 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+					<div className="container mx-auto px-4">
+						<motion.div
+							className="text-center max-w-3xl mx-auto mb-16"
+							initial={{ opacity: 0, y: 40 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.6 }}
+							viewport={{ once: true, amount: 0.3 }}
+						>
+							<div className="inline-block px-4 py-2 bg-indigo-100 dark:bg-indigo-800 dark:text-indigo-100 rounded-full text-indigo-700 font-medium text-sm mb-4">
+								Simple Process
+							</div>
+							<h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
+								How DebateMate Works
+							</h2>
+							<p className="text-xl text-gray-600 dark:text-gray-300">
+								Our platform makes it easy to practice, learn, and improve your debate skills
+							</p>
+						</motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              {[
-                {
-                  step: "01",
-                  title: "Choose a Topic",
-                  description:
-                    "Select from our library of debate topics or create your own custom topic.",
-                },
-                {
-                  step: "02",
-                  title: "Debate the AI",
-                  description:
-                    "Engage in a real-time debate with our advanced AI opponent that adapts to your style.",
-                },
-                {
-                  step: "03",
-                  title: "Get Feedback",
-                  description:
-                    "Receive detailed analysis and personalized tips to improve your performance.",
-                },
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  className="relative bg-white rounded-2xl p-8 shadow-lg"
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                >
-                  <div className="absolute -top-6 left-8 w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold">
-                    {item.step}
-                  </div>
-                  <h3 className="text-2xl font-bold mt-6 mb-4 text-gray-900">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-600">{item.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
+						<div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+							{[
+								{
+									step: "01",
+									title: "Choose a Topic",
+									description:
+										"Select from our library of debate topics or create your own custom topic.",
+								},
+								{
+									step: "02",
+									title: "Debate the AI",
+									description:
+										"Engage in a real-time debate with our advanced AI opponent that adapts to your style.",
+								},
+								{
+									step: "03",
+									title: "Get Feedback",
+									description:
+										"Receive detailed analysis and personalized tips to improve your performance.",
+								},
+							].map((item, index) => (
+								<motion.div
+									key={index}
+									className="relative bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg transition-colors duration-300"
+									initial={{ opacity: 0, y: 40 }}
+									whileInView={{ opacity: 1, y: 0 }}
+									transition={{ duration: 0.6, delay: index * 0.1 }}
+									viewport={{ once: true, amount: 0.3 }}
+								>
+									<div className="absolute -top-6 left-8 w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold">
+										{item.step}
+									</div>
+									<h3 className="text-2xl font-bold mt-6 mb-4 text-gray-900 dark:text-white">
+										{item.title}
+									</h3>
+									<p className="text-gray-600 dark:text-gray-300">{item.description}</p>
+								</motion.div>
+							))}
+						</div>
+					</div>
+				</section>
+
 
 				{/* Stats Section */}
 				<section
