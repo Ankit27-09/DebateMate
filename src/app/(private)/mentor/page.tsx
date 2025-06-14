@@ -1,5 +1,7 @@
 'use client';
 import { useState, useEffect, useCallback } from 'react';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 interface SuggestedTopic {
   title: string;
@@ -565,12 +567,12 @@ export default function DebatePage() {
                 
                 {/* Call to Action */}
                 <div className="flex justify-center mt-6">
-                  <button 
-                    onClick={() => setActiveTab('debate')}
-                    className="px-6 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors shadow-md"
+                  <Button
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                    asChild
                   >
-                    Start a New Debate
-                  </button>
+                    <Link href="/debate/options">Start a New Debate</Link>
+                  </Button>
                 </div>
               </div>
             )}
