@@ -4,6 +4,7 @@ import type React from "react";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import {
@@ -92,6 +93,7 @@ const navItems: NavItem[] = [
 ];
 
 export function DashboardSidebar() {
+  const { user } = useUser();
   const pathname = usePathname();
   const isMobile = useMobile();
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -172,8 +174,8 @@ export function DashboardSidebar() {
         <div className="flex items-center gap-2">
           <Avatar className="h-9 w-9">
             <AvatarImage
-              src={`https://ui-avatars.com/api/?name=${"John Doe"}&size=64&background=random`}
-              alt={"John Doe"}
+              src={user?.imageUrl}
+              alt={user?.fullName || "User"}
             />
             <AvatarFallback>
               {"John Doe"
@@ -184,9 +186,9 @@ export function DashboardSidebar() {
           </Avatar>
           {!isCollapsed && (
             <div className="flex flex-1 flex-col overflow-hidden">
-              <div className="truncate text-sm font-medium">{"John Doe"}</div>
+              <div className="truncate text-sm font-medium">{user?.fullName || "User"}</div>
               <div className="truncate text-xs text-muted-foreground">
-                {"john.doe@4mail.com"}
+                {user?.primaryEmailAddress?.emailAddress || "email@example.com"}
               </div>
             </div>
           )}

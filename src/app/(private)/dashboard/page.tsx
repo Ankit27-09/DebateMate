@@ -10,6 +10,7 @@ import {
   Award,
 } from "lucide-react";
 import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
 
 import {
   Card,
@@ -27,6 +28,8 @@ import { useRouter } from 'next/navigation';
 export default function DashboardPage() {
   //   const { data: session } = useSession()
   const router = useRouter();
+  const { user } = useUser();
+
 
   const container = {
     hidden: { opacity: 0 },
@@ -60,7 +63,7 @@ export default function DashboardPage() {
           <CardContent className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
             <div className="space-y-1">
               <h2 className="text-2xl font-bold tracking-tight">
-                Welcome back, <span className="font-medium">John Doe</span>!
+                Welcome back, <span className="font-medium">{user?.firstName}</span>!
               </h2>
               <p className="text-muted-foreground">
                 Here&apos;s what&apos;s happening with your debate training
