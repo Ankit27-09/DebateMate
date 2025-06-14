@@ -11,19 +11,22 @@ const testimonials = [
   {
     name: "Sarah Johnson",
     role: "Debate Team Captain, Stanford University",
-    content: "DebateMate transformed our team's performance. The AI opponent provides realistic practice scenarios, and the detailed feedback helped us identify and fix weaknesses in our arguments.",
+    content:
+      "DebateMate transformed our team's performance. The AI opponent provides realistic practice scenarios, and the detailed feedback helped us identify and fix weaknesses in our arguments.",
     rating: 5,
   },
   {
     name: "Michael Chen",
     role: "High School Debate Coach",
-    content: "I've been coaching debate for 15 years, and DebateMate is the most innovative tool I've seen. My students have shown remarkable improvement in their critical thinking and rebuttal skills.",
+    content:
+      "I've been coaching debate for 15 years, and DebateMate is the most innovative tool I've seen. My students have shown remarkable improvement in their critical thinking and rebuttal skills.",
     rating: 5,
   },
   {
     name: "Emily Rodriguez",
     role: "Law Student",
-    content: "As a law student, articulating clear arguments is essential. DebateMate helped me refine my reasoning and anticipate counterarguments, which has been invaluable in moot court competitions.",
+    content:
+      "As a law student, articulating clear arguments is essential. DebateMate helped me refine my reasoning and anticipate counterarguments, which has been invaluable in moot court competitions.",
     rating: 4,
   },
 ];
@@ -60,7 +63,8 @@ export default function TestimonialsSection() {
         >
           <h2 className="text-4xl font-bold mb-4">What Our Users Say</h2>
           <p className="text-xl text-muted-foreground">
-            Join thousands of satisfied users who have transformed their debate skills
+            Join thousands of satisfied users who have transformed their debate
+            skills
           </p>
         </motion.div>
 
@@ -74,7 +78,11 @@ export default function TestimonialsSection() {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
                 className="flex transition-transform duration-500 ease-in-out"
-                style={{ transform: mounted ? `translateX(-${currentIndex * 100}%)` : "none" }}
+                style={{
+                  transform: mounted
+                    ? `translateX(-${currentIndex * 100}%)`
+                    : "none",
+                }}
               >
                 {testimonials.map((testimonial, index) => (
                   <div
@@ -95,11 +103,15 @@ export default function TestimonialsSection() {
                         ))}
                       </div>
                       <p className="text-muted-foreground mb-6 italic text-lg">
-                        "{testimonial.content}"
+                        &quot;{testimonial.content}&quot;
                       </p>
                       <div>
-                        <p className="font-semibold text-lg">{testimonial.name}</p>
-                        <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                        <p className="font-semibold text-lg">
+                          {testimonial.name}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {testimonial.role}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -109,7 +121,7 @@ export default function TestimonialsSection() {
           </div>
 
           {mounted && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               className="flex justify-center gap-2 mt-8"
@@ -144,4 +156,4 @@ export default function TestimonialsSection() {
       </div>
     </section>
   );
-} 
+}
