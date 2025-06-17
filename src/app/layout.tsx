@@ -1,6 +1,6 @@
+
 import { Geist, Geist_Mono } from "next/font/google";
 import { ClerkProvider } from '@clerk/nextjs';
-import "./globals.css";
 import { ReactNode } from "react";
 import { ThemeProvider as HydrationSafeThemeProvider } from "@/components/theme-provider";
 
@@ -13,14 +13,19 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+// app/layout.tsx
+import { ThemeProvider } from "@/components/theme-provider";
+import "./globals.css";
+
 
 export const metadata = {
-  title: "DebateMate: Elevate Your Argument Game",
-  description: "1-on-1 AI-driven debates with real-time feedback.",
+  title: "DebateMate",
+  description: "AI-powered debate training platform",
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
+
     <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
       <html lang="en">
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
@@ -32,6 +37,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           >
             {children}
           </HydrationSafeThemeProvider>
+
+    <ClerkProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            {children}
+          </ThemeProvider>
+
         </body>
       </html>
     </ClerkProvider>

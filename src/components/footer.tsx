@@ -1,8 +1,8 @@
+// components/Footer.tsx
 "use client";
 
 import Link from "next/link";
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
-import { ModeToggle } from "@/components/mode-toggle";
 
 export default function Footer() {
   return (
@@ -23,129 +23,126 @@ export default function Footer() {
               skills.
             </p>
             <div className="flex space-x-4">
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
                 <Facebook className="h-5 w-5" />
               </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
                 <Twitter className="h-5 w-5" />
               </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
                 <Instagram className="h-5 w-5" />
               </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
                 <Linkedin className="h-5 w-5" />
               </a>
             </div>
-            <ModeToggle />
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-3">
-              {[
-                { label: "Home", href: "/" },
-                { label: "Features", href: "/features" },
-                { label: "Pricing", href: "/pricing" },
-                {
-                  label: "Testimonials",
-                  href: "/testimonials",
-                },
-                { label: "Contact", href: "/contact" },
-              ].map(({ label, href }) => (
-                <li key={label}>
-                  <Link
-                    href={href}
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+					{/* Quick Links */}
+					<div>
+						<h3 className="text-lg font-semibold mb-4">
+							Quick Links
+						</h3>
+						<ul className="space-y-3">
+							{[
+								{ label: "Home", href: "/" },
+								{ label: "Features", href: "/features" },
+								{ label: "Pricing", href: "/pricing" },
+								{
+									label: "Testimonials",
+									href: "/testimonials",
+								},
+								{ label: "Contact", href: "/contact" },
+							].map(({ label, href }) => (
+								<li key={label}>
+									<Link
+										href={href}
+										className="text-gray-400 hover:text-white transition-colors"
+									>
+										{label}
+									</Link>
+								</li>
+							))}
+						</ul>
+					</div>
 
-          {/* Resources */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Resources</h3>
-            <ul className="space-y-3">
-              {["Blog", "Guides", "FAQ", "Support", "API Docs"].map((item) => (
-                <li key={item}>
-                  <Link
-                    href="#"
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+					{/* Resources */}
+					<div>
+						<h3 className="text-lg font-semibold mb-4">
+							Resources
+						</h3>
+						<ul className="space-y-3">
+							{[
+								"Blog",
+								"Guides",
+								"FAQ",
+								"Support",
+								"API Docs",
+							].map((item) => (
+								<li key={item}>
+									<Link
+										href="#"
+										className="text-gray-400 hover:text-white transition-colors"
+									>
+										{item}
+									</Link>
+								</li>
+							))}
+						</ul>
+					</div>
 
-          {/* Legal */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Legal</h3>
-            <ul className="space-y-3">
-              {[
-                "Terms of Service",
-                "Privacy Policy",
-                "Cookie Policy",
-                "GDPR",
-                "Accessibility",
-              ].map((item) => (
-                <li key={item}>
-                  <Link
-                    href="#"
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+					{/* Legal */}
+					<div>
+						<h3 className="text-lg font-semibold mb-4">Legal</h3>
+						<ul className="space-y-3">
+							{[
+								"Terms of Service",
+								"Privacy Policy",
+								"Cookie Policy",
+								"GDPR",
+								"Accessibility",
+							].map((item) => (
+								<li key={item}>
+									<Link
+										href="#"
+										className="text-gray-400 hover:text-white transition-colors"
+									>
+										{item}
+									</Link>
+								</li>
+							))}
+						</ul>
+					</div>
+				</div>
 
-        <div className="border-t border-gray-800 pt-8 mt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-500 text-sm mb-4 md:mb-0">
-              © 2025 DebateMate. All rights reserved.
-            </p>
-            <div className="flex space-x-6">
-              <Link
-                href="#"
-                className="text-gray-500 hover:text-white text-sm transition-colors"
-              >
-                Privacy
-              </Link>
-              <Link
-                href="#"
-                className="text-gray-500 hover:text-white text-sm transition-colors"
-              >
-                Terms
-              </Link>
-              <Link
-                href="#"
-                className="text-gray-500 hover:text-white text-sm transition-colors"
-              >
-                Cookies
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
+				<div className="border-t border-gray-800 pt-8 mt-8">
+					<div className="flex flex-col md:flex-row justify-between items-center">
+						<p className="text-gray-500 text-sm mb-4 md:mb-0">
+							© 2025 DebateMate. All rights reserved.
+						</p>
+						<div className="flex space-x-6">
+							<Link
+								href="#"
+								className="text-gray-500 hover:text-white text-sm transition-colors"
+							>
+								Privacy
+							</Link>
+							<Link
+								href="#"
+								className="text-gray-500 hover:text-white text-sm transition-colors"
+							>
+								Terms
+							</Link>
+							<Link
+								href="#"
+								className="text-gray-500 hover:text-white text-sm transition-colors"
+							>
+								Cookies
+							</Link>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	);
 }

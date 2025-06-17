@@ -307,19 +307,7 @@ export default function Navbar() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.6, duration: 0.5 }}
                   >
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() =>
-                        setTheme(theme === "light" ? "dark" : "light")
-                      }
-                    >
-                      {theme === "light" ? (
-                        <Moon className="h-4 w-4" />
-                      ) : (
-                        <Sun className="h-4 w-4" />
-                      )}
-                    </Button>
+                    <ModeToggle />
                   </motion.div>
 
                   {/* Sign In Button */}
@@ -365,19 +353,7 @@ export default function Navbar() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.6, duration: 0.5 }}
                   >
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() =>
-                        setTheme(theme === "light" ? "dark" : "light")
-                      }
-                    >
-                      {theme === "light" ? (
-                        <Moon className="h-4 w-4" />
-                      ) : (
-                        <Sun className="h-4 w-4" />
-                      )}
-                    </Button>
+                    <ModeToggle />
                   </motion.div>
 
                   {/* Dashboard Button */}
@@ -404,17 +380,7 @@ export default function Navbar() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.6, duration: 0.5 }}
               >
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-                >
-                  {theme === "light" ? (
-                    <Moon className="h-4 w-4" />
-                  ) : (
-                    <Sun className="h-4 w-4" />
-                  )}
-                </Button>
+                <ModeToggle />
               </motion.div>
 
               {/* Mobile Menu Toggle */}
