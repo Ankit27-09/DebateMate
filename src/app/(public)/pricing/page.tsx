@@ -8,6 +8,7 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import { XIcon, CheckIcon } from "lucide-react";
+import FAQSection from "./FAQsection";
 
 export default function PricingPage() {
 	return (
@@ -107,74 +108,7 @@ export default function PricingPage() {
 				</div>
 			</div>
 
-			<section className="py-20 bg-background px-8 sm:px-0">
-				<div className="container mx-auto w-full">
-					<div className="max-w-3xl mx-auto">
-						<h2 className="text-3xl font-bold mb-8 text-center">
-							Frequently Asked Questions
-						</h2>
-
-						<div className="space-y-6">
-							<div className="border-b pb-4">
-								<h3 className="text-xl font-medium mb-2">
-									Can I switch plans later?
-								</h3>
-								<p className="text-muted-foreground">
-									Yes, you can upgrade or downgrade your plan
-									at any time. If you upgrade, you&apos;ll be
-									charged the prorated difference. If you
-									downgrade, you&apos;ll receive credit toward
-									your next billing cycle.
-								</p>
-							</div>
-
-							<div className="border-b pb-4">
-								<h3 className="text-xl font-medium mb-2">
-									Is there a free trial?
-								</h3>
-								<p className="text-muted-foreground">
-									Yes, all plans come with a 14-day free
-									trial. No credit card required to start.
-								</p>
-							</div>
-
-							<div className="border-b pb-4">
-								<h3 className="text-xl font-medium mb-2">
-									Do you offer discounts for educational
-									institutions?
-								</h3>
-								<p className="text-muted-foreground">
-									Yes, we offer special pricing for schools
-									and universities. Contact our sales team for
-									more information.
-								</p>
-							</div>
-
-							<div className="border-b pb-4">
-								<h3 className="text-xl font-medium mb-2">
-									What payment methods do you accept?
-								</h3>
-								<p className="text-muted-foreground">
-									We accept all major credit cards, PayPal,
-									and bank transfers for annual plans.
-								</p>
-							</div>
-
-							<div className="border-b pb-4">
-								<h3 className="text-xl font-medium mb-2">
-									Can I cancel my subscription?
-								</h3>
-								<p className="text-muted-foreground">
-									Yes, you can cancel your subscription at any
-									time. You&apos;ll continue to have access
-									until the end of your current billing
-									period.
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
+			<FAQSection />
 		</div>
 	);
 }
