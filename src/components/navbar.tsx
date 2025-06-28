@@ -1,13 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import { useMobile } from "@/hooks/use-mobile";
+
 import { useTheme } from "next-themes";
 import { ModeToggle } from "@/components/mode-toggle";
+
 import {
   SignInButton,
   SignUpButton,
@@ -15,8 +14,12 @@ import {
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
+import { AnimatePresence, motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import { useTheme } from "next-themes";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
   const [isClient, setIsClient] = useState(false);
@@ -26,6 +29,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
 
+
   const navLinks = [
     { name: "Features", href: "/features" },
     { name: "Pricing", href: "/pricing" },
@@ -33,6 +37,7 @@ export default function Navbar() {
     { name: "Contact", href: "/contact" },
     { name: "Roadmap", href: "/roadmap" },
   ];
+
 
   useEffect(() => {
     setIsClient(true);
@@ -52,7 +57,9 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [mobileMenuOpen]);
 
+
   if (!isClient) return null;
+
 
   return (
     <header
