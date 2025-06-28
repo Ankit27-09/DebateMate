@@ -1,4 +1,5 @@
-"use client"
+"use client";
+
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GoogleGenerativeAI } from '@google/generative-ai';
@@ -10,18 +11,17 @@ import { cn } from "@/lib/utils";
 import { toast } from 'sonner';
 import { useChatStore } from '@/store/useChatStore';
 
-
-
-// Initialize Gemini API (keeping your existing configuration)
+// ✅ Correct API key environment reference
 const GEMINI_API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 if (!GEMINI_API_KEY) {
-  console.error('Gemini API key is missing. Please add VITE_GEMINI_API_KEY to your .env file');
+  console.error('Gemini API key is missing. Please add NEXT_PUBLIC_GEMINI_API_KEY to your .env file');
+
 }
 
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY || '');
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-// Your existing system prompt (unchanged)
+
 const SYSTEM_PROMPT = `You are a skilled debate coach and AI assistant for DebateMate, an AI-powered debate training platform. Your responsibilities include:
 
 1. Guiding users through the DebateMate interface and features.
@@ -55,7 +55,9 @@ export function ChatBot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: 'Hello! I\'m your FinTechForge AI assistant. How can I help you with your financial needs today?',
+
+      content: "Hello! I'm your DebateMate AI coach. Ready to sharpen your debating skills or analyze your speech? Let's begin!",
+
       timestamp: Date.now()
     }
   ]);
@@ -65,7 +67,7 @@ export function ChatBot() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
-  // All your existing useEffect hooks (unchanged)
+
   useEffect(() => {
     const savedMessages = localStorage.getItem('chatHistory');
     if (savedMessages) {
@@ -81,11 +83,12 @@ export function ChatBot() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  // All your existing functions (unchanged)
+
   const clearChatHistory = () => {
     setMessages([{
       role: 'assistant',
-      content: 'Hello! I\'m your FinTechForge AI assistant. How can I help you with your financial needs today?',
+      content: "Hello! I'm your DebateMate AI coach. Ready to sharpen your debating skills or analyze your speech? Let's begin!",
+
       timestamp: Date.now()
     }]);
     localStorage.removeItem('chatHistory');
@@ -93,88 +96,87 @@ export function ChatBot() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  if (!input.trim() || isLoading) return;
 
-  if (!GEMINI_API_KEY) {
-    toast.error('Gemini API key is missing. Please add VITE_GEMINI_API_KEY to your .env file');
-    return;
-  }
+    e.preventDefault();
+    if (!input.trim() || isLoading) return;
 
-  const userMessage = input.trim();
-  setInput('');
-  setMessages(prev => [...prev, {
-    role: 'user',
-    content: userMessage,
-    timestamp: Date.now()
-  }]);
-  setIsLoading(true);
-  setIsTyping(true);
+    if (!GEMINI_API_KEY) {
+      toast.error('Gemini API key is missing. Please add NEXT_PUBLIC_GEMINI_API_KEY to your .env file');
+      return;
+    }
 
-  try {
-    // 🧠 Convert message history to Gemini-compatible format
-    const conversationHistory = messages.map(msg => ({
-      role: msg.role === "assistant" ? "model" : "user",
-      parts: [{ text: msg.content }],
-    }));
-
-    // 🧠 Add the system prompt as the first user message
-    const chat = model.startChat({
-      history: [
-        { role: 'user', parts: [{ text: SYSTEM_PROMPT }] },
-        ...conversationHistory,
-      ],
-      generationConfig: {
-        maxOutputTokens: 500,
-        temperature: 0.7,
-        topP: 0.8,
-        topK: 40,
-      },
-    });
-
-    const result = await chat.sendMessage(userMessage);
-    const response = await result.response;
-    const text = response.text();
-
+    const userMessage = input.trim();
+    setInput('');
     setMessages(prev => [...prev, {
-      role: 'assistant',
-      content: text,
+      role: 'user',
+      content: userMessage,
       timestamp: Date.now()
     }]);
-  } catch (error) {
-    console.error('Error generating response:', error);
-    toast.error('Failed to generate response. Please try again.');
-    setMessages(prev => [...prev, {
-      role: 'assistant',
-      content: 'I apologize, but I encountered an error. Please try again or rephrase your question.',
-      timestamp: Date.now()
-    }]);
-  } finally {
-    setIsLoading(false);
-    setIsTyping(false);
-  }
-};
+    setIsLoading(true);
+    setIsTyping(true);
 
+    try {
+      const conversationHistory = messages.map(msg => ({
+        role: msg.role === "assistant" ? "model" : "user",
+        parts: [{ text: msg.content }],
+      }));
 
+      const chat = model.startChat({
+        history: [
+          { role: 'user', parts: [{ text: SYSTEM_PROMPT }] },
+          ...conversationHistory,
+        ],
+        generationConfig: {
+          maxOutputTokens: 500,
+          temperature: 0.7,
+          topP: 0.8,
+          topK: 40,
+        },
+      });
+
+      const result = await chat.sendMessage(userMessage);
+      const response = await result.response;
+      const text = response.text();
+
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: text,
+        timestamp: Date.now()
+      }]);
+    } catch (error) {
+      console.error('Error generating response:', error);
+      toast.error('Failed to generate response. Please try again.');
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: 'I apologize, but I encountered an error. Please try again or rephrase your question.',
+        timestamp: Date.now()
+      }]);
+    } finally {
+      setIsLoading(false);
+      setIsTyping(false);
+    }
+  };
 
   const toggleChat = () => {
-  setIsOpen((prev) => {
-    const next = !prev;
-    setChatOpen(next);
-    return next;
-  });
+    const nextState = !isOpen;
+    setIsOpen(nextState);
+    setChatOpen(nextState);
+    
+    if (!nextState) {
+      setIsMinimized(false);
+    }
+  };
 
-  if (!isOpen) setIsMinimized(false);
-};
 
   const toggleMinimize = () => {
     setIsMinimized(!isMinimized);
   };
 
   const formatTimestamp = (timestamp: number) => {
-    return new Date(timestamp).toLocaleTimeString([], { 
-      hour: '2-digit', 
-      minute: '2-digit' 
+
+    return new Date(timestamp).toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit'
     });
   };
 
@@ -301,7 +303,9 @@ export function ChatBot() {
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-base">FinTech AI</span>
+
+                      <span className="font-bold text-base">Debate mate AI</span>
+
                       <Sparkles className="w-3 h-3 text-yellow-300" />
                     </div>
                     <div className="flex items-center gap-1 text-xs text-white/80">

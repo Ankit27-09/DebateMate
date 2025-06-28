@@ -65,7 +65,9 @@ DebateMate/
    ```bash
    npm install
 
+
    cp .env.example .env #enter you api keys and gemini key
+
 
    npm run dev
    ```
