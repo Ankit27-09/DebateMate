@@ -64,7 +64,9 @@ DebateMate/
 2. **FrontEnd (Next.js + TypeScript)**
    ```bash
    npm install
-   cp .env.example .env #enter you api keys
+
+   cp .env.example .env #enter you api keys and gemini key
+
    npm run dev
    ```
    Then open [http://localhost:3000](http://localhost:3000) in your browser.

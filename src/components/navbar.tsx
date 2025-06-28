@@ -60,6 +60,7 @@ export default function Navbar() {
 
   if (!isClient) return null;
 
+
   return (
     <header
       className={cn(
