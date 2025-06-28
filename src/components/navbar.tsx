@@ -4,8 +4,7 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import { useMobile } from "@/hooks/use-mobile";
 
-import { useTheme } from "next-themes";
-import { ModeToggle } from "@/components/mode-toggle";
+import { cn } from "@/lib/utils";
 
 import {
   SignInButton,
