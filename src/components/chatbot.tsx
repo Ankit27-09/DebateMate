@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GoogleGenerativeAI } from '@google/generative-ai';
@@ -14,12 +15,13 @@ import { useChatStore } from '@/store/useChatStore';
 const GEMINI_API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 if (!GEMINI_API_KEY) {
   console.error('Gemini API key is missing. Please add NEXT_PUBLIC_GEMINI_API_KEY to your .env file');
+
 }
 
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY || '');
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-// 🧠 Updated system prompt for DebateMate
+
 const SYSTEM_PROMPT = `You are a skilled debate coach and AI assistant for DebateMate, an AI-powered debate training platform. Your responsibilities include:
 
 1. Guiding users through the DebateMate interface and features.
@@ -38,6 +40,7 @@ const SYSTEM_PROMPT = `You are a skilled debate coach and AI assistant for Debat
 
 Always be concise, motivating, and professional—like a debate mentor focused on growth and performance improvement.`;
 
+
 interface Message {
   role: 'user' | 'assistant';
   content: string;
@@ -45,13 +48,16 @@ interface Message {
 }
 
 export function ChatBot() {
+
   const { setChatOpen } = useChatStore();
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
+
       content: "Hello! I'm your DebateMate AI coach. Ready to sharpen your debating skills or analyze your speech? Let's begin!",
+
       timestamp: Date.now()
     }
   ]);
@@ -60,6 +66,7 @@ export function ChatBot() {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+
 
   useEffect(() => {
     const savedMessages = localStorage.getItem('chatHistory');
@@ -76,10 +83,12 @@ export function ChatBot() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+
   const clearChatHistory = () => {
     setMessages([{
       role: 'assistant',
       content: "Hello! I'm your DebateMate AI coach. Ready to sharpen your debating skills or analyze your speech? Let's begin!",
+
       timestamp: Date.now()
     }]);
     localStorage.removeItem('chatHistory');
@@ -87,6 +96,7 @@ export function ChatBot() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+
     e.preventDefault();
     if (!input.trim() || isLoading) return;
 
@@ -157,16 +167,19 @@ export function ChatBot() {
     if (!isOpen) setIsMinimized(false);
   };
 
+
   const toggleMinimize = () => {
     setIsMinimized(!isMinimized);
   };
 
   const formatTimestamp = (timestamp: number) => {
+
     return new Date(timestamp).toLocaleTimeString([], {
       hour: '2-digit',
       minute: '2-digit'
     });
   };
+
 
 
   return (
@@ -292,7 +305,9 @@ export function ChatBot() {
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
+
                       <span className="font-bold text-base">Debate mate AI</span>
+
                       <Sparkles className="w-3 h-3 text-yellow-300" />
                     </div>
                     <div className="flex items-center gap-1 text-xs text-white/80">

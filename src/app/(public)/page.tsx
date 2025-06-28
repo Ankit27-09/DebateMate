@@ -20,6 +20,7 @@ import FeaturesSection from "@/components/landing/features-section";
 import TestimonialsSection from "@/components/landing/testimonials-section";
 import PricingSection from "@/components/landing/pricing-section";
 import Navbar from "@/components/navbar";
+import Link from "next/link";
 
 function AvatarModel() {
 	return (
@@ -112,168 +113,142 @@ export default function Home() {
 			<main className="overflow-hidden">
 				{/* Hero Section with Gradient Background */}
 				<section
-					ref={heroRef}
-					className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden"
+				  ref={heroRef}
+				  className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden bg-gradient-to-b from-background to-muted"
 				>
-					{/* Background gradient */}
-					{/* <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-indigo-50 z-0" /> */}
+				  {/* Background Effects */}
+				  <div className="absolute inset-0 z-0">
+				    <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-purple-500/20 blur-3xl animate-pulse" />
+				    <div className="absolute top-1/3 -left-20 w-72 h-72 rounded-full bg-indigo-400/20 blur-2xl animate-bounce" />
+				    <div className="absolute -bottom-40 right-1/4 w-80 h-80 rounded-full bg-blue-500/10 blur-3xl animate-spin-slow" />
+				  </div>
 
-					{/* Animated background shapes */}
-					<div className="absolute inset-0 overflow-hidden z-0">
-						<div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-indigo-100 opacity-60" />
-						<div className="absolute top-1/3 -left-20 w-72 h-72 rounded-full bg-teal-100 opacity-60" />
-						<div className="absolute -bottom-40 right-1/4 w-80 h-80 rounded-full bg-indigo-200 opacity-40" />
-					</div>
+				  <div className="container mx-auto px-4 z-10">
+				    <motion.div
+				      className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+				      initial="hidden"
+				      animate={heroControls}
+				      variants={staggerContainer}
+				      style={{ y: heroY, opacity: heroOpacity }}
+				    >
+				      {/* Left: Text Content */}
+				      <motion.div className="space-y-6 lg:space-y-8" variants={fadeInUp}>
+				        <motion.div
+				          className="inline-block px-4 py-2 bg-muted text-primary font-medium text-sm rounded-full shadow"
+				          initial={{ opacity: 0, x: -20 }}
+				          animate={{ opacity: 1, x: 0 }}
+				          transition={{ delay: 0.2, duration: 0.5 }}
+				        >
+				          🚀 The Future of Debate Training
+				        </motion.div>
 
-					<div className="container mx-auto px-4 z-10">
-						<motion.div
-							className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
-							initial="hidden"
-							animate={heroControls}
-							variants={staggerContainer}
-							style={{ y: heroY, opacity: heroOpacity }}
-						>
-							<motion.div
-								className="space-y-8"
-								variants={fadeInUp}
-							>
-								<motion.div
-									className="inline-block px-4 py-2 bg-indigo-100 dark:bg-indigo-500/20 rounded-full text-indigo-700 dark:text-indigo-300 font-medium text-sm"
-									initial={{ opacity: 0, x: -20 }}
-									animate={{ opacity: 1, x: 0 }}
-									transition={{ delay: 0.2, duration: 0.5 }}
-								>
-									🚀 The Future of Debate Training
-								</motion.div>
+				        <motion.h1
+				          className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-foreground tracking-tight leading-tight"
+				          variants={fadeInUp}
+				        >
+				          <span className="block">DebateMate</span>
+				          <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+				            Elevate Your Argument Game
+				          </span>
+				        </motion.h1>
 
-								<motion.h1
-									className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-foreground"
-									variants={fadeInUp}
-								>
-									<span className="block">DebateMate:</span>
-									<span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-teal-500">
-										Elevate Your Argument Game
-									</span>
-								</motion.h1>
+				        <motion.p
+				          className="text-xl md:text-2xl text-muted-foreground max-w-2xl leading-relaxed"
+				          variants={fadeInUp}
+				        >
+				          1-on-1 AI-driven debates with real-time feedback. Master the art of persuasion and critical thinking.
+				        </motion.p>
 
-								<motion.p
-									className="text-xl md:text-2xl text-muted-foreground max-w-xl"
-									variants={fadeInUp}
-								>
-									1-on-1 AI-driven debates with real-time
-									feedback. Master the art of persuasion and
-									critical thinking.
-								</motion.p>
+				        <motion.div className="flex flex-col sm:flex-row gap-4" variants={fadeInUp}>
+				          <Link
+				            href="/pricing"
+				            className="inline-flex items-center justify-center bg-primary text-primary-foreground px-8 py-4 text-lg rounded-xl shadow-md hover:bg-primary/90 hover:shadow-xl transition-transform hover:scale-105 active:scale-95"
+				          >
+				            Start Your First Debate
+				            <ArrowRight className="ml-2 h-5 w-5" />
+				          </Link>
 
-								<motion.div
-									className="flex flex-col sm:flex-row gap-4"
-									variants={fadeInUp}
-								>
-									<MotionButton
-										size="lg"
-										className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl px-8 py-6 text-lg shadow-lg hover:shadow-primary/20 transition-all"
-										whileHover={{ scale: 1.05 }}
-										whileTap={{ scale: 0.98 }}
-									>
-										Start Your First Debate
-										<ArrowRight className="ml-2 h-5 w-5" />
-									</MotionButton>
+				          <Button
+				            variant="outline"
+				            size="lg"
+				            className="border-2 border-primary text-primary hover:bg-primary/10 rounded-xl px-8 py-4 text-lg shadow hover:shadow-md transition-transform hover:scale-105"
+				          >
+				            Watch Demo
+				          </Button>
+				        </motion.div>
 
-									<MotionButton
-										variant="outline"
-										size="lg"
-										className="border-2 border-primary text-primary hover:bg-primary/10 rounded-xl px-8 py-6 text-lg"
-										whileHover={{ scale: 1.05 }}
-										whileTap={{ scale: 0.98 }}
-									>
-										See Demo
-									</MotionButton>
-								</motion.div>
+				        <motion.div className="flex items-center gap-3 text-muted-foreground mt-4" variants={fadeInUp}>
+				          <div className="flex -space-x-2">
+				            {[1, 2, 3, 4].map((i) => (
+				              <div
+				                key={i}
+				                className="w-8 h-8 rounded-full bg-gradient-to-r from-chart-1 to-chart-5 border-2 border-background"
+				              />
+				            ))}
+				          </div>
+				          <span>
+				            Join <strong>2,000+</strong> debaters worldwide
+				          </span>
+				        </motion.div>
+				      </motion.div>
 
-								<motion.div
-									className="flex items-center gap-4 text-gray-600"
-									variants={fadeInUp}
-								>
-									<div className="flex -space-x-2">
-										{[1, 2, 3, 4].map((i) => (
-											<div
-												key={i}
-												className="w-8 h-8 rounded-full bg-gradient-to-r from-indigo-400 to-indigo-600 border-2 border-white"
-											/>
-										))}
-									</div>
-									<span>
-										Join <b>2,000+</b> debaters worldwide
-									</span>
-								</motion.div>
-							</motion.div>{" "}
-							<motion.div
-								className="relative h-[500px] lg:h-[600px]"
-								initial={{ opacity: 0, x: 100 }}
-								animate={{ opacity: 1, x: 0 }}
-								transition={{ duration: 0.8, delay: 0.4 }}
-							>
-								<div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-teal-400 dark:from-indigo-600 dark:to-teal-500 rounded-3xl transform rotate-3 opacity-20" />
-								<div className="absolute inset-0 bg-card rounded-3xl shadow-xl overflow-hidden">
-									<div className="absolute top-0 left-0 right-0 h-12 bg-muted flex items-center px-4">
-										<div className="flex space-x-2">
-											<div className="w-3 h-3 rounded-full bg-red-400" />
-											<div className="w-3 h-3 rounded-full bg-yellow-400" />
-											<div className="w-3 h-3 rounded-full bg-green-400" />
-										</div>
-									</div>
+				      {/* Right: 3D Visual */}
+				      <motion.div
+				        className="relative h-[400px] md:h-[500px] lg:h-[600px] border-4 border-muted rounded-3xl overflow-hidden shadow-2xl"
+				        initial={{ opacity: 0, x: 100 }}
+				        animate={{ opacity: 1, x: 0 }}
+				        transition={{ duration: 0.8, delay: 0.4 }}
+				      >
+				        <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent opacity-10 blur-2xl rotate-3" />
+				        <div className="absolute inset-0 bg-card rounded-3xl overflow-hidden">
+				          <div className="absolute top-0 left-0 right-0 h-12 bg-muted flex items-center px-4 border-b">
+				            <div className="flex space-x-2">
+				              <div className="w-3 h-3 rounded-full bg-red-400" />
+				              <div className="w-3 h-3 rounded-full bg-yellow-400" />
+				              <div className="w-3 h-3 rounded-full bg-green-400" />
+				            </div>
+				          </div>
+				          <div className="pt-12 h-full">
+				            <Canvas>
+				              <ambientLight intensity={0.8} />
+				              <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} />
+				              <pointLight position={[-10, -10, -10]} />
+				              <AvatarModel />
+				              <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={1} />
+				            </Canvas>
+				          </div>
+				        </div>
+				      </motion.div>
+				    </motion.div>
+				  </div>
 
-									<div className="pt-12 h-full">
-										<Canvas>
-											<ambientLight intensity={0.8} />
-											<spotLight
-												position={[10, 10, 10]}
-												angle={0.15}
-												penumbra={1}
-												intensity={1}
-											/>
-											<pointLight
-												position={[-10, -10, -10]}
-											/>
-											<AvatarModel />
-											<OrbitControls
-												enableZoom={false}
-												autoRotate
-												autoRotateSpeed={1}
-											/>
-										</Canvas>
-									</div>
-								</div>
-							</motion.div>
-						</motion.div>
-					</div>
-
-					{/* Scroll indicator */}
-					<motion.div
-						className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
-						initial={{ opacity: 0, y: -20 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{
-							delay: 1,
-							duration: 1,
-							repeat: Number.POSITIVE_INFINITY,
-							repeatType: "reverse",
-						}}
-					>
-						<div className="w-8 h-12 rounded-full border-2 border-gray-400 flex justify-center">
-							<motion.div
-								className="h-3 text-gray-400 mt-2"
-								animate={{ y: [0, 6, 0] }}
-								transition={{
-									duration: 1.5,
-									repeat: Number.POSITIVE_INFINITY,
-								}}
-							>
-								<ArrowDown />
-							</motion.div>
-						</div>
-					</motion.div>
+				  {/* Scroll Indicator */}
+				  <motion.div
+				    className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+				    initial={{ opacity: 0, y: -20 }}
+				    animate={{ opacity: 1, y: 0 }}
+				    transition={{
+				      delay: 1,
+				      duration: 1,
+				      repeat: Infinity,
+				      repeatType: "reverse",
+				    }}
+				  >
+				    <div className="w-8 h-12 rounded-full border-2 border-muted-foreground flex justify-center items-start">
+				      <motion.div
+				        className="h-3 w-3 bg-muted-foreground rounded-full mt-2"
+				        animate={{ y: [0, 6, 0] }}
+				        transition={{ duration: 1.5, repeat: Infinity }}
+				      />
+				    </div>
+				  </motion.div>
 				</section>
+
+
+
+
+
+
 
 				{/* Logo Marquee */}
 				<LogoMarquee />
@@ -407,15 +382,21 @@ export default function Home() {
 								their argumentation abilities with DebateMate.
 							</p>
 
-							<MotionButton
-								size="lg"
-								className="dark:bg-gray-900 bg-gray-200 text-primary hover:bg-background/90 rounded-xl px-8 py-6 text-lg shadow-lg"
-								whileHover={{ scale: 1.05 }}
-								whileTap={{ scale: 0.98 }}
-							>
-								Start Your Free Trial
-								<ArrowRight className="ml-2 h-5 w-5" />
-							</MotionButton>
+							<Link href="/pricing" passHref>
+							  <MotionButton
+							    asChild
+							    size="lg"
+							    className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl px-8 py-4 text-lg shadow-md hover:shadow-lg transition-transform"
+							    whileHover={{ scale: 1.05 }}
+							    whileTap={{ scale: 0.98 }}
+							  >
+							    <span className="flex items-center">
+							      Start Your First Debate
+							      <ArrowRight className="ml-2 h-5 w-5" />
+							    </span>
+							  </MotionButton>
+							</Link>
+
 						</motion.div>
 					</div>
 				</section>

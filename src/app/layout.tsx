@@ -16,6 +16,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+
 export const metadata = {
   title: "DebateMate",
   description: "AI-powered debate training platform",
@@ -23,6 +24,7 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
+
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body>
