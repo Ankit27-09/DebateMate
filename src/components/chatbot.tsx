@@ -158,13 +158,13 @@ export function ChatBot() {
   };
 
   const toggleChat = () => {
-    setIsOpen((prev) => {
-      const next = !prev;
-      setChatOpen(next);
-      return next;
-    });
-
-    if (!isOpen) setIsMinimized(false);
+    const nextState = !isOpen;
+    setIsOpen(nextState);
+    setChatOpen(nextState);
+    
+    if (!nextState) {
+      setIsMinimized(false);
+    }
   };
 
 
@@ -179,8 +179,6 @@ export function ChatBot() {
       minute: '2-digit'
     });
   };
-
-
 
   return (
     <div className="fixed bottom-4 right-4 z-50">
