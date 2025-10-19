@@ -3,10 +3,8 @@
 import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import { useMobile } from "@/hooks/use-mobile";
-
+import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
-import { ModeToggle } from "@/components/mode-toggle";
-
 import {
   SignInButton,
   SignUpButton,
@@ -16,7 +14,6 @@ import {
 } from "@clerk/nextjs";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { useTheme } from "next-themes";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
