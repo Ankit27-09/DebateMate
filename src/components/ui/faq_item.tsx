@@ -3,8 +3,17 @@ import { motion, AnimatePresence } from "framer-motion";
 import * as FaIcons from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa";
 
-const FAQItem = ({ id, question, answer, icon, isOpen, toggleFAQ }) => {
-  const IconComponent = FaIcons[icon];
+interface FAQItemProps {
+  id: string;
+  question: string;
+  answer: string;
+  icon: string;
+  isOpen: boolean;
+  toggleFAQ: (id: string) => void;
+}
+
+const FAQItem: React.FC<FAQItemProps> = ({ id, question, answer, icon, isOpen, toggleFAQ }) => {
+  const IconComponent = (FaIcons as any)[icon];
 
   return (
     <motion.div
