@@ -8,7 +8,7 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import { XIcon, CheckIcon } from "lucide-react";
-import FAQSection from "./FAQsection";
+import PricingFAQSection from "./FAQsection";
 
 export default function PricingPage() {
 	return (
@@ -108,7 +108,7 @@ export default function PricingPage() {
 				</div>
 			</div>
 
-			<FAQSection />
+			<PricingFAQSection />
 		</div>
 	);
 }
