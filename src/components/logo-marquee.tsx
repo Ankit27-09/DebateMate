@@ -4,14 +4,14 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 const logos = [
-  { name: "Company 1", logo: "/placeholder.svg?height=40&width=120" },
-  { name: "Company 2", logo: "/placeholder.svg?height=40&width=120" },
-  { name: "Company 3", logo: "/placeholder.svg?height=40&width=120" },
-  { name: "Company 4", logo: "/placeholder.svg?height=40&width=120" },
-  { name: "Company 5", logo: "/placeholder.svg?height=40&width=120" },
-  { name: "Company 6", logo: "/placeholder.svg?height=40&width=120" },
-  { name: "Company 7", logo: "/placeholder.svg?height=40&width=120" },
-  { name: "Company 8", logo: "/placeholder.svg?height=40&width=120" },
+  { name: "Microsoft", logo: "/microsoft-logo.svg" },
+  { name: "Google", logo: "/google-logo.svg" },
+  { name: "Apple", logo: "/apple-logo.svg" },
+  { name: "Amazon", logo: "/Amazon-Logo.png" },
+  { name: "Meta", logo: "/Meta-logo.png" },
+  { name: "Netflix", logo: "/netflix-logo.svg" },
+  { name: "Tesla", logo: "/Tesla-Logo.png" },
+  { name: "OpenAI", logo: "/openai-logo.svg" },
 ];
 
 // Duplicate logos for seamless loop
@@ -42,14 +42,14 @@ export default function LogoMarquee() {
           {marqueeLogos.map((logo, index) => (
             <div
               key={index}
-              className="flex-shrink-0 flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-70 hover:opacity-100"
+              className="flex-shrink-0 flex items-center justify-center transition-all opacity-80 hover:opacity-100 w-[120px] h-[40px]"
             >
               <Image
-                src={logo.logo || "/placeholder.svg"}
+                src={logo.logo}
                 alt={logo.name}
                 width={120}
                 height={40}
-                className="h-10 w-auto"
+                className="max-w-full max-h-full object-contain"
               />
             </div>
           ))}
