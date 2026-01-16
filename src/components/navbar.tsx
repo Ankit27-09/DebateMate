@@ -34,6 +34,7 @@ export default function Navbar() {
     { name: "Testimonials", href: "/testimonials" },
     { name: "Contact", href: "/contact" },
     { name: "Roadmap", href: "/roadmap" },
+    { name: "AI Debate", href: "/ai-debate" },
   ];
 
 
