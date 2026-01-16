@@ -141,6 +141,7 @@ export default function NewDebatePage() {
       handleRoundEnd();
     }
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTimerActive, timeLeft]);
 
   // Initialize speech synthesis and recognition
@@ -207,11 +208,9 @@ export default function NewDebatePage() {
     setCurrentRound(1);
 
     // Initial AI message
-    const aiOpeningPrompt = `You are an AI debate opponent. The debate topic is: "${finalTopic}". The human is arguing ${
-      userPosition === "for" ? "FOR" : "AGAINST"
-    } this position, so you must argue ${
-      userPosition === "for" ? "AGAINST" : "FOR"
-    } it. 
+    const aiOpeningPrompt = `You are an AI debate opponent. The debate topic is: "${finalTopic}". The human is arguing ${userPosition === "for" ? "FOR" : "AGAINST"
+      } this position, so you must argue ${userPosition === "for" ? "AGAINST" : "FOR"
+      } it. 
 
 This is Round 1 of the debate. Provide a strong opening argument (2-3 sentences) that establishes your position clearly. Be respectful but firm in your stance. Focus on one key point to start the debate.
 
@@ -219,11 +218,9 @@ Respond only with your opening argument, nothing else.`;
 
     const initialMessage: Message = {
       id: "initial",
-      content: `Great! Let's debate "${finalTopic}". I'll argue ${
-        userPosition === "for" ? "AGAINST" : "FOR"
-      } this position while you argue ${
-        userPosition === "for" ? "FOR" : "AGAINST"
-      } it. This is Round 1 - you have 3 minutes. Let me start with my opening statement: 
+      content: `Great! Let's debate "${finalTopic}". I'll argue ${userPosition === "for" ? "AGAINST" : "FOR"
+        } this position while you argue ${userPosition === "for" ? "FOR" : "AGAINST"
+        } it. This is Round 1 - you have 3 minutes. Let me start with my opening statement: 
 
 ${generateAIResponse(aiOpeningPrompt, true)}`,
       sender: "ai",
@@ -298,9 +295,8 @@ ${generateAIResponse(aiOpeningPrompt, true)}`,
       // Add round transition message
       const transitionMessage: Message = {
         id: `round-${currentRound + 1}`,
-        content: `Round ${currentRound} has ended! Moving to Round ${
-          currentRound + 1
-        }. The timer has been reset.`,
+        content: `Round ${currentRound} has ended! Moving to Round ${currentRound + 1
+          }. The timer has been reset.`,
         sender: "ai",
         timestamp: new Date(),
         round: currentRound + 1,
@@ -458,11 +454,10 @@ ${generateAIResponse(aiOpeningPrompt, true)}`,
                 <button
                   key={topic.id}
                   onClick={() => setSelectedTopic(topic.title)}
-                  className={`w-full p-3 text-left rounded-lg border-2 transition-all ${
-                    selectedTopic === topic.title
+                  className={`w-full p-3 text-left rounded-lg border-2 transition-all ${selectedTopic === topic.title
                       ? "border-primary bg-primary/10"
                       : "border-border hover:border-primary/50"
-                  }`}
+                    }`}
                 >
                   <Badge variant="secondary" className="mb-2">
                     {topic.category}
@@ -492,22 +487,20 @@ ${generateAIResponse(aiOpeningPrompt, true)}`,
                 <div className="grid grid-cols-2 gap-3">
                   <button
                     onClick={() => setUserPosition("for")}
-                    className={`p-3 rounded-lg border-2 transition-all ${
-                      userPosition === "for"
+                    className={`p-3 rounded-lg border-2 transition-all ${userPosition === "for"
                         ? "border-green-500 bg-green-50 dark:bg-green-900/20"
                         : "border-border"
-                    }`}
+                      }`}
                   >
                     <div className="text-lg mb-1">✅</div>
                     <div className="font-semibold">FOR</div>
                   </button>
                   <button
                     onClick={() => setUserPosition("against")}
-                    className={`p-3 rounded-lg border-2 transition-all ${
-                      userPosition === "against"
+                    className={`p-3 rounded-lg border-2 transition-all ${userPosition === "against"
                         ? "border-red-500 bg-red-50 dark:bg-red-900/20"
                         : "border-border"
-                    }`}
+                      }`}
                   >
                     <div className="text-lg mb-1">❌</div>
                     <div className="font-semibold">AGAINST</div>
@@ -663,9 +656,8 @@ ${generateAIResponse(aiOpeningPrompt, true)}`,
             <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-background border">
               <Clock className="w-4 h-4" />
               <span
-                className={`font-mono text-sm ${
-                  timeLeft < 30 ? "text-destructive" : "text-primary"
-                }`}
+                className={`font-mono text-sm ${timeLeft < 30 ? "text-destructive" : "text-primary"
+                  }`}
               >
                 {formatTimeLeft(timeLeft)}
               </span>
@@ -769,18 +761,16 @@ ${generateAIResponse(aiOpeningPrompt, true)}`,
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.3 }}
-                    className={`flex ${
-                      message.sender === "user"
+                    className={`flex ${message.sender === "user"
                         ? "justify-end"
                         : "justify-start"
-                    }`}
+                      }`}
                   >
                     <div
-                      className={`max-w-[80%] rounded-lg p-4 ${
-                        message.sender === "user"
+                      className={`max-w-[80%] rounded-lg p-4 ${message.sender === "user"
                           ? "bg-primary text-primary-foreground"
                           : "bg-muted"
-                      }`}
+                        }`}
                     >
                       <div className="flex items-center gap-2 mb-2">
                         <span className="text-xs font-medium">
@@ -910,13 +900,12 @@ ${generateAIResponse(aiOpeningPrompt, true)}`,
                     {Array.from({ length: maxRounds }, (_, i) => (
                       <div
                         key={i}
-                        className={`h-2 rounded-full ${
-                          i + 1 < currentRound
+                        className={`h-2 rounded-full ${i + 1 < currentRound
                             ? "bg-green-500"
                             : i + 1 === currentRound
-                            ? "bg-primary"
-                            : "bg-muted"
-                        }`}
+                              ? "bg-primary"
+                              : "bg-muted"
+                          }`}
                       />
                     ))}
                   </div>
