@@ -9,8 +9,6 @@ import {
 	useTransform,
 } from "framer-motion";
 import { ArrowRight, ArrowDown } from "lucide-react";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
 import { Button } from "@/components/ui/button";
 import { useMobile } from "@/hooks/use-mobile";
 import { useRouter } from "next/navigation";
@@ -22,16 +20,47 @@ import PricingSection from "@/components/landing/pricing-section";
 import Navbar from "@/components/navbar";
 import Link from "next/link";
 
-function AvatarModel() {
+// Image Carousel Component for hero section
+function ImageCarousel() {
+	const images = ["/robot3.png", "/robot.png", "/robot2.png"];
+	const [currentIndex, setCurrentIndex] = useState(0);
+
+	useEffect(() => {
+		const timer = setInterval(() => {
+			setCurrentIndex((prev) => (prev + 1) % images.length);
+		}, 2000);
+		return () => clearInterval(timer);
+	}, [images.length]);
+
 	return (
-		<mesh position={[0, 0, 0]} rotation={[0, Math.PI / 4, 0]}>
-			<sphereGeometry args={[1, 32, 32]} />
-			<meshStandardMaterial
-				color="#4F46E5"
-				metalness={0.5}
-				roughness={0.2}
-			/>
-		</mesh>
+		<div className="relative">
+			{images.map((src, index) => (
+				<motion.img
+					key={src}
+					src={src}
+					alt={`Robot ${index + 1}`}
+					className={`w-full h-auto rounded-2xl ${index !== 0 ? 'absolute top-0 left-0' : ''}`}
+					initial={{ opacity: 0 }}
+					animate={{
+						opacity: currentIndex === index ? 1 : 0,
+					}}
+					transition={{ duration: 0.5, ease: "easeInOut" }}
+				/>
+			))}
+			{/* Dots indicator */}
+			<div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+				{images.map((_, index) => (
+					<button
+						key={index}
+						onClick={() => setCurrentIndex(index)}
+						className={`w-2 h-2 rounded-full transition-all ${currentIndex === index
+							? "bg-white w-6"
+							: "bg-white/40 hover:bg-white/60"
+							}`}
+					/>
+				))}
+			</div>
+		</div>
 	);
 }
 
@@ -190,32 +219,14 @@ export default function Home() {
 								</motion.div>
 							</motion.div>
 
-							{/* Right: 3D Visual */}
+							{/* Right: Image Carousel */}
 							<motion.div
-								className="relative h-[400px] md:h-[500px] lg:h-[600px] border-4 border-muted rounded-3xl overflow-hidden shadow-2xl"
+								className="relative rounded-2xl overflow-hidden shadow-2xl"
 								initial={{ opacity: 0, x: 100 }}
 								animate={{ opacity: 1, x: 0 }}
 								transition={{ duration: 0.8, delay: 0.4 }}
 							>
-								<div className="absolute inset-0 bg-gradient-to-r from-primary to-accent opacity-10 blur-2xl rotate-3" />
-								<div className="absolute inset-0 bg-card rounded-3xl overflow-hidden">
-									<div className="absolute top-0 left-0 right-0 h-12 bg-muted flex items-center px-4 border-b">
-										<div className="flex space-x-2">
-											<div className="w-3 h-3 rounded-full bg-red-400" />
-											<div className="w-3 h-3 rounded-full bg-yellow-400" />
-											<div className="w-3 h-3 rounded-full bg-green-400" />
-										</div>
-									</div>
-									<div className="pt-12 h-full">
-										<Canvas>
-											<ambientLight intensity={0.8} />
-											<spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} />
-											<pointLight position={[-10, -10, -10]} />
-											<AvatarModel />
-											<OrbitControls enableZoom={false} autoRotate autoRotateSpeed={1} />
-										</Canvas>
-									</div>
-								</div>
+								<ImageCarousel />
 							</motion.div>
 						</motion.div>
 					</div>
